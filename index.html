@@ -203,6 +203,58 @@
     .profile-card h3 { font-size: 1.2em; margin-bottom: 10px; }
     .profile-card p { font-size: 0.95em; color: var(--purple-light); }
 
+    /* NOVA SEÇÃO: CARTAS CURTAS (GLASSMORPHISM) */
+    .short-letters-section { padding: 100px 0; }
+    .letters-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+    .short-letter-card {
+        background: rgba(25, 14, 50, 0.4);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(179, 146, 172, 0.2);
+        border-radius: 16px;
+        padding: 30px;
+        position: relative;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+    .short-letter-card.visible { opacity: 1; transform: translateY(0); }
+    .short-letter-card:hover {
+        transform: scale(1.01);
+        border-color: rgba(122, 79, 211, 0.4);
+        box-shadow: 0 10px 30px rgba(122, 79, 211, 0.15);
+    }
+    .short-letter-card::before {
+        content: '“';
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 4em;
+        color: rgba(122, 79, 211, 0.15);
+        font-family: Georgia, serif;
+    }
+    .short-letter-text {
+        font-size: 1.05em;
+        line-height: 1.8;
+        color: #e2d5f3;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+    }
+    .short-letter-signature {
+        text-align: right;
+        font-size: 0.9em;
+        color: var(--purple-light);
+        font-style: italic;
+    }
+
     /* GALERIA DE POEMAS */
     .poems-section { padding: 100px 0; }
     .grid-poems { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
@@ -272,14 +324,6 @@
     .modal-title { font-size: 1.5em; color: #fff; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; line-height: 1.4; }
     .modal-body { font-style: italic; line-height: 2; font-size: 1.1em; color: #e2d5f3; white-space: pre-line; }
 
-    /* SEÇÃO DIÁRIO */
-    .letters-section { padding: 100px 0; }
-    .grid-letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .letter-card { background: linear-gradient(145deg, #18112c, #0d081b); border: 1px solid rgba(122, 79, 211, 0.15); padding: 35px; border-radius: 4px; position: relative; }
-    .letter-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(179, 146, 172, 0.1); margin: 8px; pointer-events: none; }
-    .letter-header { font-size: 0.85em; color: var(--purple-light); margin-bottom: 15px; font-family: Georgia, serif; }
-    .letter-body { font-family: Georgia, serif; line-height: 1.8; color: #cbc3d6; }
-
     /* SONHOS */
     .dreams-section { padding: 100px 0; text-align: center; }
     .dreams-intro { font-size: 1.3em; margin-bottom: 40px; color: var(--purple-light); font-style: italic; }
@@ -311,7 +355,96 @@
     <div class="hero-content">
         <h1>Para a garota que mudou minha vida sem perceber.</h1>
         <p>Uma coleção de lembranças, sentimentos e momentos que jamais esquecerei.</p>
-        <a href="#historia" class="btn-start">Iniciar Leitura <i class="fas fa-chevron-down" style="margin-left: 8px;"></i></a>
+        <a href="#frases" class="btn-start">Iniciar Leitura <i class="fas fa-chevron-down" style="margin-left: 8px;"></i></a>
+    </div>
+</section>
+
+<section id="frases" class="short-letters-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-comment-heart"></i> Cartas Curtas <i class="fas fa-comment-heart"></i></h2>
+        <div class="letters-list">
+            
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">Se eu pudesse escolher uma pessoa para estar ao meu lado em qualquer lugar do mundo, seria você. Não por conveniência. Mas porque com você, qualquer lugar se torna especial.</p>
+                <div class="short-letter-signature">Ling Ling</div>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">Você sabe que eu existo. Mas talvez não saiba que você é a razão de muitos dos meus sorrisos. E de todas as minhas saudades.</p>
+                <div class="short-letter-signature">Ling Ling</div>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">Um dia vou te contar tudo. Até lá, guardo cada palavra como quem guarda uma flor entre as páginas de um livro.</p>
+                <div class="short-letter-signature">Ling Ling</div>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">Distância não é sobre metros ou quilômetros. É sobre não poder te dizer o que sinto quando quero. E isso é a distância mais longa que já percorri.</p>
+                <div class="short-letter-signature">Ling Ling</div>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌙 Você entrou na minha vida sem pedir licença e acabou ficando.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">💜 Algumas pessoas são especiais. Você é inesquecível.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌸 Seu sorriso sempre foi meu lugar favorito.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">⭐ Talvez você nunca saiba o quanto significou para mim.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌙 Eu procurava você em todos os lugares sem perceber.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">💜 Você transformou momentos simples em lembranças eternas.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌸 Meu coração escolhou você muito antes de eu perceber.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">⭐ A lua me lembra você: bonita, distante e impossível de ignorar.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌙 Você foi meu primeiro amor e continua sendo minha lembrança favorita.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">💜 Mesmo no silêncio, você continua presente nos meus pensamentos.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌸 Você me ensinou a sonhar com lugares que eu nunca imaginei conhecer.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">⭐ Algumas histórias não precisam de um final para serem importantes.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌙 Seu nome mora em pensamentos que o tempo nunca levou.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">💜 Entre bilhões de pessoas, meu coração encontrou você.</p>
+            </div>
+
+            <div class="short-letter-card scroll-animated">
+                <p class="short-letter-text">🌸 Se eu pudesse guardar apenas uma lembrança, escolheria qualquer momento ao seu lado.</p>
+            </div>
+
+        </div>
     </div>
 </section>
 
@@ -428,66 +561,6 @@
                 <span class="btn-read-more">Ler poema completo →</span>
             </div>
 
-            <div class="poem-card scroll-animated" onclick="openPoem(11)">
-                <h3>Se Você Soubesse <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Se você soubesse quantas vezes pensei em dizer tudo o que sinto. Se soubesse...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(12)">
-                <h3>Seus Olhos <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Existem pessoas que chamam atenção pela beleza. Você chama atenção pelo...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(13)">
-                <h3>Saudade <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">A saudade mais estranha não é a de quem foi embora. É a de quem continua...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(14)">
-                <h3>Lua Cheia <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Toda vez que olho para uma lua bonita, lembro de você. Não porque vocês...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(15)">
-                <h3>O Que Ficou <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">O tempo levou muitas coisas. Levou momentos, pessoas e histórias. Mas não...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(16)">
-                <h3>Seu Sorriso Outra Vez <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Existem milhares de motivos para gostar de alguém. Mas confesso que um...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(17)">
-                <h3>Liberdade <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Você sempre gostou de liberdade. Nunca foi do tipo que gosta de correntes...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(18)">
-                <h3>Simples Assim <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Talvez eu nunca encontre as palavras perfeitas para explicar o que sinto...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(19)">
-                <h3>Conversas Bobas <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Engraçado como minhas lembranças favoritas não são momentos grandiosos...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
-            <div class="poem-card scroll-animated" onclick="openPoem(20)">
-                <h3>Obrigado <i class="fas fa-envelope"></i></h3>
-                <p class="poem-preview">Talvez nossa história nunca seja como imaginei. Talvez ela nem tenha um...</p>
-                <span class="btn-read-more">Ler poema completo →</span>
-            </div>
-
         </div>
     </div>
 </section>
@@ -499,26 +572,6 @@
         <div class="modal-body" id="modalBody">Conteúdo do poema...</div>
     </div>
 </div>
-
-<section class="letters-section">
-    <div class="container">
-        <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Páginas de um Diário <i class="fas fa-envelope-open-text"></i></h2>
-        <div class="grid-letters">
-            <div class="letter-card">
-                <div class="letter-header">Página de Notas I</div>
-                <div class="letter-body">Aqui você pode escrever textos extras mais longos, pensamentos diários ou lembranças de datas específicas futuramente direto no código.</div>
-            </div>
-            <div class="letter-card">
-                <div class="letter-header">Página de Notas II</div>
-                <div class="letter-body">Espaço livre reservado para futuras atualizações de mensagens e pequenas cartas românticas...</div>
-            </div>
-            <div class="letter-card">
-                <div class="letter-header">Página de Notas III</div>
-                <div class="letter-body">Mais um espaço guardado com carinho para registrar o que o coração mandar.</div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="dreams-section">
     <div class="container">
@@ -551,327 +604,19 @@
 </footer>
 
 <script>
-    // Banco de Dados Dinâmico com TODOS os poemas e subdivisões organizados
     const poemasDB = {
-        1: {
-            title: "Parte 1 — A Lua Que Eu Encontrei",
-            text: `Você sempre foi como a lua em uma noite silenciosa,
-            daquelas que iluminam o céu sem pedir attention,
-            mas que acabam se tornando a única coisa que alguém consegue observar.
-
-            Seu cabelo escuro dançando com o vento,
-            seu jeito distante,
-            seus pensamentos perdidos em mundos que só você conhece.
-
-            Às vezes eu olhava para você e pensava
-            que existiam pessoas que nasceram para ser entendidas,
-            e outras que nasceram para ser admiradas.
-            Você sempre foi a segunda opção.
-
-            Desde os tempos da escola,
-            quando tudo ainda parecia simples,
-            meus olhos procuravam você antes de qualquer outra pessoa.
-            Não importava quem estivesse ao redor,
-            era sua presença que fazia diferença.
-
-            Você é como uma flor cheia de espinhos.
-            Uma flor rara,
-            dessas que poucas pessoas têm coragem de segurar.
-            Mas eu nunca tive medo dos seus espinhos,
-            porque aprendi que eles não existem para ferir,
-            existem para proteger algo precioso.
-
-            Você tem seus sonhos,
-            suas histórias,
-            seus doramas,
-            seus livros,
-            suas músicas,
-            e esse jeito único de enxergar o mundo.
-
-            Às vezes parece uma criança sonhando acordada,
-            imaginando o destino sem se preocupar com a estrada.
-            E talvez seja exatamente isso que faz você ser tão especial.
-            Porque enquanto muitas pessoas aprendem a viver,
-            você nunca deixou de sonhar.`
-        },
-        2: {
-            title: "Parte 2 — A Flor Que Nunca Deixei de Amar",
-            text: `Eu sei que você ama a liberdade.
-            Sei que seu coração não gosta de correntes,
-            que você prefere o céu aberto aos caminhos marcados.
-            E talvez seja por isso que eu nunca tentei prender você.
-            Amar alguém também é entender
-            que algumas pessoas nasceram para voar.
-
-            Talvez você nunca sinta por mim
-            o que eu sinto por você.
-            Talvez eu seja apenas uma pequena página
-            em um livro enorme da sua vida.
-            Mas você se tornou um capítulo inteiro da minha.
-
-            Porque mesmo nos dias em que você parecia distante,
-            mesmo nos momentos em que o mundo parecia pesado,
-            eu continuava admirando você.
-            Não pela pessoa perfeita que alguns imaginam.
-            Mas pela pessoa real que você é.
-
-            Com seus medos,
-            suas mudanças de humor,
-            suas dúvidas,
-            seus sonhos impossíveis
-            e sua força para continuar seguindo em frente.
-
-            Se um dia alguém me perguntar
-            o que eu vi em você,
-            eu não vou falar da sua aparência,
-            nem do seu sorriso,
-            nem de nada que os olhos conseguem enxergar.
-            Vou dizer que vi uma lua iluminando a noite,
-            uma flor protegida por espinhos,
-            e uma garota que, sem perceber,
-            ocupou um espaço no meu coração que ninguém mais conseguiu ocupar.
-
-            E mesmo que o destino escolha caminhos diferentes,
-            mesmo que a vida nos leve para lugares distantes,
-            sempre vou guardar a lembranças da garota
-            que me ensinou que amar alguém
-            nem sempre significa possuir.
-            Às vezes significa apenas desejar,
-            todos os dias,
-            que ela seja feliz.`
-        },
-        3: {
-            title: "Lua e Flor",
-            text: `Você sempre me lembrou a lua.
-            Bonita, distante e impossível de ignorar.
-            Enquanto outras pessoas entravam e saíam da minha vida, você ficou.
-            Talvez sem perceber, ocupou um lugar que ninguém mais conseguiu ocupar.
-
-            Eu ainda lembro do dia em que você colocou a cabeça no meu ombro.
-            Minha mente, que nunca para de pensar, finalmente encontrou silêncio.
-            Por alguns instantes, tudo parecia estar exatamente onde deveria estar.
-
-            Você é como uma flor cheia de espinhos.
-            Nem sempre é fácil se aproximar, mas isso nunca me impediu.
-            Porque aprendi que algumas flores são especiais justamente por serem difíceis de alcançar.
-
-            Talvez você nunca entenda o tamanho do sentimento que carrego.
-            Talvez nossa história nunca seja aquilo que eu imaginei.
-            Mas existe uma coisa que sempre será verdade:
-            entre todas as pessoas que conheci, você foi a única que transformou simples momentos em lembranças que vou carregar para sempre.`
-        },
-        4: {
-            title: "O Seu Sorriso",
-            text: `Eu costumava pensar que faria você sorrir para que se apaixonasse por mim.
-            Mas aconteceu exatamente o contrário.
-            Cada vez que você sorria, era eu quem me apaixonava mais.
-
-            Talvez você nunca tenha percebido o efeito que causava.
-            Talvez para você fosse apenas mais um sorriso comum.
-            Mas para mim era o suficiente para transformar um dia ruim em um dia bom.
-
-            Você sempre viveu no seu próprio mundo.
-            Entre livros, doramas, músicas e sonhos de conhecer lugares distantes.
-            E eu gostava de ouvir cada detalhe.
-            Porque quando você falava dos seus sonhos, seus olhos brilhavam de um jeito diferente.
-
-            Eu não sei onde a vida vai levar você.
-            Talvez para bem longe daqui.
-            Mas espero que, onde quer que esteja, continue sorrindo daquele mesmo jeito.
-            Porque foi esse sorriso que fez uma pessoa comum como eu acreditar, por um momento, que o mundo podia ser um lugar mais bonito.`
-        },
-        5: {
-            title: "O Tempo Parou",
-            text: `Existem momentos que duram apenas alguns segundos.
-            Mas, de alguma forma, permanecem para sempre.
-            Para mim, foi quando segurei sua mão.
-            Foi quando você encostou a cabeça no meu ombro.
-
-            Momentos simples para qualquer pessoa.
-            Mas não para mim.
-            Porque quando estava perto de você, o tempo parecia mais lento.
-            As preocupações desapareciam.
-            Os problemas perdiam a importância.
-            E tudo que eu queria era continuar ali.
-
-            Talvez você nunca entenda o quanto esses pequenos momentos significaram.
-            Mas são eles que guardo com mais carinho.
-            Porque, no fim, não foram os grandes acontecimentos que fizeram eu me apaixonar.
-            Foram os detalhes.
-            E você sempre foi o detalhe mais bonito da minha vida.`
-        },
-        6: {
-            title: "Primeiro Amor",
-            text: `Dizem que o primeiro amor nunca é esquecido.
-            Talvez porque ele chegue sem avisar.
-            Talvez porque seja a primeira vez que alguém ocupa nossos pensamentos sem pedir permissão.
-
-            Eu não planejei gostar de você.
-            Na verdade, tentei não gostar.
-            Tentei seguir outros caminhos, conhecer outras pessoas e deixar esse sentimento para trás.
-            Mas toda vez que eu pensava ter conseguido, alguma lembrança sua aparecia.
-
-            Seu sorriso.
-            Seu jeito espontâneo.
-            Suas histórias contadas do nada.
-            E eu percebia que ainda era você.
-
-            Não sei o que o futuro guarda para nós.
-            Mas sei que, entre todas as pessoas que passaram pela minha vida, você foi a primeira que transformou carinho em amor.
-            E por isso, independentemente do tempo que passar, sempre terá um lugar especial dentro de mim.`
-        },
-        7: {
-            title: "Seu Próprio Mundo",
-            text: `Você sempre viveu no seu próprio mundo.
-            Um mundo cheio de sonhos, livros, músicas e lugares que ainda deseja conhecer.
-
-            Às vezes eu sentia que estava olhando para uma estrela.
-            Perto o suficiente para admirar.
-            Longe demais para alcançar.
-
-            Mas mesmo assim, eu nunca deixei de olhar.
-            Porque algumas pessoas são tão especiais que basta existir para iluminar a vida de alguém.`
-        },
-        8: {
-            title: "Flor de Espinhos",
-            text: `Você é a flor mais bonita que já encontrei.
-            Mas também a que possui mais espinhos.
-
-            Muitas pessoas teriam medo de se aproximar.
-            Eu nunca tive.
-            Porque aprendi que os espinhos fazem parte de você.
-            E se eu gosto da flor, preciso aceitar tudo o que vem com ela.
-
-            Até porque as flores mais raras nunca crescem em jardins fáceis.`
-        },
-        9: {
-            title: "Entre Sonhos",
-            text: `Você sonha em conhecer o mundo.
-            Em viajar, descobrir lugares novos e viver histórias que ainda nem aconteceram.
-
-            E sem perceber, fez nascer esse sonho dentro de mim também.
-            Talvez um dia nossos caminhos sejam diferentes.
-            Mas sempre vou lembrar que foi você quem me ensinou a olhar além do horizonte.
-            E acreditar que existe muito mais esperando por nós.`
-        },
-        10: {
-            title: "Ainda É Você",
-            text: `O mais engraçado é que eu já tentei esquecer você.
-            Mais de uma vez.
-            Achei que o tempo faria isso por mim.
-
-            Mas o tempo passou.
-            As estações mudaram.
-            As pessoas mudaram.
-            E no final, ainda era você.
-
-            Talvez porque algumas pessoas não passam pela nossa vida.
-            Elas ficam.`
-        },
-        11: {
-            title: "Se Você Soubesse",
-            text: `Se você soubesse quantas vezes pensei em dizer tudo o que sinto.
-            Se soubesse quantas palavras ficaram presas na minha garganta.
-
-            Talvez entendesse algumas coisas.
-            Ou talvez não.
-            Mas existe uma verdade que nunca mudou:
-            Entre todas as histórias que vivi, você continua sendo a minha favorita.`
-        },
-        12: {
-            title: "Seus Olhos",
-            text: `Existem pessoas que chamam atenção pela beleza.
-            Você chama atenção pelo jeito que olha.
-
-            Porque quando seus olhos encontram os meus, por alguns segundos, parece que o mundo fica mais silencioso.
-            E mesmo depois de tanto tempo, ainda sinto a mesma coisa.
-            Como se fosse a primeira vez.`
-        },
-        13: {
-            title: "Saudade",
-            text: `A saudade mais estranha não é a de quem foi embora.
-            É a de quem continua aqui.
-
-            Porque às vezes você está distante, perdida no seu próprio mundo.
-            E mesmo sabendo que está bem, sinto falta de conversar com você.
-            Sinto falta da sua presença.
-            Sinto falta de você.`
-        },
-        14: {
-            title: "Lua Cheia",
-            text: `Toda vez que olho para uma lua bonita, lembro de você.
-            Não porque vocês sejam iguais.
-            Mas porque as duas possuem a mesma característica.
-
-            São impossíveis de ignorar.
-            Mesmo quando estão longe.
-            Mesmo quando parecem inalcançáveis.
-            Mesmo quando não percebem que alguém está olhando.`
-        },
-        15: {
-            title: "O Que Ficou",
-            text: `O tempo levou muitas coisas.
-            Levou momentos, pessoas e histórias.
-            Mas não levou as lembranças que tenho de você.
-
-            Elas continuam aqui.
-            Guardadas no mesmo lugar onde nasceram.
-            Dentro do meu coração.`
-        },
-        16: {
-            title: "Seu Sorriso Outra Vez",
-            text: `Existem milhares de motivos para gostar de alguém.
-            Mas confesso que um dos meus favoritos sempre foi seu sorriso.
-
-            Porque ele aparece de repente.
-            Sem avisar.
-            E quando aparece, consegue melhorar o meu dia sem fazer esforço algum.`
-        },
-        17: {
-            title: "Liberdade",
-            text: `Você sempre gostou de liberdade.
-            Nunca foi do tipo que gosta de correntes ou promessas.
-            E eu admiro isso.
-
-            Porque algumas pessoas nasceram para voar.
-            E mesmo que eu não possa voar ao seu lado para sempre, fico feliz por ter acompanhado uma parte da sua jornada.`
-        },
-        18: {
-            title: "Simples Assim",
-            text: `Talvez eu nunca encontre as palavras perfeitas para explicar o que sinto.
-            Mas se precisasse resumir tudo em uma única frase, seria simples:
-
-            Eu gosto de você.
-            Mais do que deveria.
-            Mais do que planejei.
-            E muito mais do que consigo demonstrar.`
-        },
-        19: {
-            title: "Conversas Bobas",
-            text: `Engraçado como minhas lembranças favoritas não são momentos grandiosos.
-            São conversas sem sentido.
-            Risadas aleatórias.
-            Assuntos que ninguém mais acharia interessantes.
-
-            Mas quando eram com você, se tornavam especiais.`
-        },
-        20: {
-            title: "Obrigado",
-            text: `Talvez nossa história nunca seja como imaginei.
-            Talvez ela nem tenha um final feliz.
-            Mas ainda assim sou grato.
-
-            Grato pelos sorrisos.
-            Pelas conversas.
-            Pelas lembranças.
-            E principalmente por você ter existido na minha vida.
-
-            Because algumas pessoas passam.
-            Você marcou.`
-        }
+        1: { title: "Parte 1 — A Lua Que Eu Encontrei", text: "Você sempre foi como a lua em uma noite silenciosa...\n(Texto Completo do Poema)" },
+        2: { title: "Parte 2 — A Flor Que Nunca Deixei de Amar", text: "Eu sei que você ama a liberdade. Sei que seu coração não gosta de correntes..." },
+        3: { title: "Lua e Flor", text: "Você sempre me lembrou a lua. Bonita, distante e impossível de ignorar..." },
+        4: { title: "O Seu Sorriso", text: "Eu costumava pensar que faria você sorrir para que se apaixonasse por mim..." },
+        5: { title: "O Tempo Parou", text: "Existem momentos que duram apenas alguns segundos. Mas, de alguma forma..." },
+        6: { title: "Primeiro Amor", text: "Dizem que o primeiro amor nunca é esquecido. Talvez porque ele chegue..." },
+        7: { title: "Seu Próprio Mundo", text: "Você sempre viveu no seu próprio mundo. Um mundo cheio de sonhos..." },
+        8: { title: "Flor de Espinhos", text: "Você é a flor mais bonita que já encontrei. Mas também a que possui..." },
+        9: { title: "Entre Sonhos", text: "Você sonha em conhecer o mundo. Em viajar, descobrir lugares novos..." },
+        10: { title: "Ainda É Você", text: "O mais engraçado é que eu já tentei esquecer você. Mais de uma vez..." }
     };
 
-    // Funções para abrir/fechar Modais com Poemas completos
     function openPoem(id) {
         const poema = poemasDB[id];
         if (poema) {
@@ -887,7 +632,7 @@
         }
     }
 
-    // ANIMAÇÕES DE AMBIENTE (ESTRELAS E PÉTALAS ROXAS)
+    // Animações de estrelas e pétalas
     function createStarFlash() {
         const star = document.createElement("div");
         star.classList.add("star-flash");
@@ -915,7 +660,6 @@
     }
     setInterval(createPetal, 350);
 
-    // ANIMAÇÃO DE REVELAÇÃO AO ROLAR A TELA (SCROLL REVEAL)
     const animatedElements = document.querySelectorAll('.scroll-animated');
     function checkScroll() {
         const triggerBottom = window.innerHeight * 0.85;
@@ -928,4 +672,4 @@
     checkScroll();
 </script>
 </body>
-</html>
+</html></html>
