@@ -203,62 +203,9 @@
     .profile-card h3 { font-size: 1.2em; margin-bottom: 10px; }
     .profile-card p { font-size: 0.95em; color: var(--purple-light); }
 
-    /* NOVA SEÇÃO: CARTAS CURTAS (GLASSMORPHISM) */
-    .short-letters-section { padding: 100px 0; }
-    .letters-list {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        max-width: 750px;
-        margin: 0 auto;
-    }
-    .short-letter-card {
-        background: rgba(25, 14, 50, 0.4);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(179, 146, 172, 0.2);
-        border-radius: 16px;
-        padding: 30px;
-        position: relative;
-        transition: all 0.3s ease;
-        opacity: 0;
-        transform: translateY(20px);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    }
-    .short-letter-card.visible { opacity: 1; transform: translateY(0); }
-    .short-letter-card:hover {
-        transform: scale(1.01);
-        border-color: rgba(122, 79, 211, 0.4);
-        box-shadow: 0 10px 30px rgba(122, 79, 211, 0.15);
-    }
-    .short-letter-card::before {
-        content: '“';
-        position: absolute;
-        top: 10px;
-        left: 20px;
-        font-size: 4em;
-        color: rgba(122, 79, 211, 0.15);
-        font-family: Georgia, serif;
-    }
-    .short-letter-text {
-        font-size: 1.05em;
-        line-height: 1.8;
-        color: #e2d5f3;
-        margin-bottom: 15px;
-        position: relative;
-        z-index: 2;
-    }
-    .short-letter-signature {
-        text-align: right;
-        font-size: 0.9em;
-        color: var(--purple-light);
-        font-style: italic;
-    }
-
     /* GALERIA DE POEMAS */
     .poems-section { padding: 100px 0; }
     .grid-poems { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-    
     .poem-card {
         background: rgba(20, 11, 40, 0.5);
         backdrop-filter: blur(12px);
@@ -331,6 +278,59 @@
     .asia-highlight { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
     .map-tag { background: var(--purple-dark); border: 1px solid var(--purple-primary); padding: 8px 20px; border-radius: 20px; font-size: 0.9em; display: flex; align-items: center; gap: 8px; }
     .map-tag.asia { background: rgba(122, 79, 211, 0.3); box-shadow: 0 0 10px rgba(122, 79, 211, 0.4); border-color: #b392ac; }
+    
+    /* CARTAS CURTAS (AGORA NO FINAL) */
+    .short-letters-section { padding: 100px 0; }
+    .letters-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+    .short-letter-card {
+        background: rgba(25, 14, 50, 0.4);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(179, 146, 172, 0.2);
+        border-radius: 16px;
+        padding: 30px;
+        position: relative;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+    .short-letter-card.visible { opacity: 1; transform: translateY(0); }
+    .short-letter-card:hover {
+        transform: scale(1.01);
+        border-color: rgba(122, 79, 211, 0.4);
+        box-shadow: 0 10px 30px rgba(122, 79, 211, 0.15);
+    }
+    .short-letter-card::before {
+        content: '“';
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 4em;
+        color: rgba(122, 79, 211, 0.15);
+        font-family: Georgia, serif;
+    }
+    .short-letter-text {
+        font-size: 1.05em;
+        line-height: 1.8;
+        color: #e2d5f3;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+    }
+    .short-letter-signature {
+        text-align: right;
+        font-size: 0.9em;
+        color: var(--purple-light);
+        font-style: italic;
+    }
+
     .final-quote-box { max-width: 700px; margin: 80px auto 0 auto; padding: 30px; border-left: 3px solid var(--purple-primary); background: rgba(255,255,255,0.03); text-align: left; }
     .final-quote-box p { font-size: 1.15em; line-height: 1.8; color: #e2d5f3; }
 
@@ -355,7 +355,143 @@
     <div class="hero-content">
         <h1>Para a garota que mudou minha vida sem perceber.</h1>
         <p>Uma coleção de lembranças, sentimentos e momentos que jamais esquecerei.</p>
-        <a href="#frases" class="btn-start">Iniciar Leitura <i class="fas fa-chevron-down" style="margin-left: 8px;"></i></a>
+        <a href="#historia" class="btn-start">Iniciar Leitura <i class="fas fa-chevron-down" style="margin-left: 8px;"></i></a>
+    </div>
+</section>
+
+<section id="historia" class="timeline-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-moon"></i> Nossa História <i class="fas fa-moon"></i></h2>
+        <div class="timeline">
+            <div class="timeline-item left scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024</div>
+                    <p>Quando nos conhecemos e o world ganhou uma nova cor.</p>
+                </div>
+            </div>
+            <div class="timeline-item right scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">O Momento Especial</div>
+                    <p>O dia marcante em que você apoiou a cabeça no meu ombro.</p>
+                </div>
+            </div>
+            <div class="timeline-item left scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">Nossa Sintonia</div>
+                    <p>As conversas intermináveis sobre BTS, os seus livros preferidos e os doramas que você tanto ama assistir.</p>
+                </div>
+            </div>
+            <div class="timeline-item right scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">Simplicidade</div>
+                    <p>Os momentos mais simples ao seu lado que, sem explicação, se tornaram os mais inesquecíveis da minha vida.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="profile-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-star"></i> Quem é Ling Ling? <i class="fas fa-star"></i></h2>
+        <div class="grid-profile">
+            <div class="profile-card"><i class="fas fa-palette"></i><h3>Cor Favorita</h3><p>O roxo, que preenche todo o universo desse site.</p></div>
+            <div class="profile-card"><i class="fas fa-music"></i><h3>Ama BTS</h3><p>O grupo favorito que embala seus dias e alegra o coração.</p></div>
+            <div class="profile-card"><i class="fas fa-tv"></i><h3>Ama Doramas</h3><p>Apaixonada por histórias envolventes, intensas e emocionantes.</p></div>
+            <div class="profile-card"><i class="fas fa-book"></i><h3>Ama Livros</h3><p>Devoradora de páginas, vivendo mil vidas através das leituras.</p></div>
+            <div class="profile-card"><i class="fas fa-dog"></i><h3>Ama Cachorros</h3><p>Tem um carinho e amor genuíno e puro pelos animais.</p></div>
+            <div class="profile-card"><i class="fas fa-plane"></i><h3>Sonhos Altos</h3><p>Almeja viajar por toda a Ásia e conhecer o mundo inteiro.</p></div>
+            <div class="profile-card"><i class="fas fa-utensils"></i><h3>"Estou com fome"</h3><p>A frase clássica e adorável que ela repete a qualquer hora.</p></div>
+            <div class="profile-card"><i class="fas fa-sparkles"></i><h3>Espontânea</h3><p>Dona de um jeito totalmente imprevisível, único e fascinante.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="poems-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-feather-alt"></i> Versos Para Ela <i class="fas fa-feather-alt"></i></h2>
+        <div class="grid-poems">
+            
+            <div class="poem-card scroll-animated" onclick="openPoem(1)">
+                <h3>Parte 1 — A Lua Que Eu Encontrei <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre foi como a lua em uma noite silenciosa, daquelas que iluminam...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(2)">
+                <h3>Parte 2 — A Flor Que Nunca Deixei de Amar <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Eu sei que você ama a liberdade. Sei que seu coração não gosta de correntes...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(3)">
+                <h3>Lua e Flor <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre me lembrou a lua. Bonita, distante e impossível de ignorar...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(4)">
+                <h3>O Seu Sorriso <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Eu costumava pensar que faria você sorrir para que se apaixonasse por mim...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(5)">
+                <h3>O Tempo Parou <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Existem momentos que duram apenas alguns segundos. Mas, de alguma forma...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(6)">
+                <h3>Primeiro Amor <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Dizem que o primeiro amor nunca é esquecido. Talvez porque ele chegue...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(7)">
+                <h3>Seu Próprio Mundo <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre viveu no seu próprio mundo. Um mundo cheio de sonhos...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(8)">
+                <h3>Flor de Espinhos <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você é a flor mais bonita que já encontrei. Mas também a que possui...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(9)">
+                <h3>Entre Sonhos <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sonha em conhecer o mundo. Em viajar, descobrir lugares novos e viver...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(10)">
+                <h3>Ainda É Você <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">O mais engraçado é que eu já tentei esquecer você. Mais de uma vez. Achei...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="dreams-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-compass"></i> O Mundo Que Espera Por Ela <i class="fas fa-compass"></i></h2>
+        <div class="dreams-intro">"Você me ensinou que o mundo é maior do que eu imaginava."</div>
+        
+        <div class="map-container">
+            <p style="margin-bottom: 25px; color: var(--purple-light);">Países e destinos marcados no coração para visitar e explorar:</p>
+            <div class="asia-highlight">
+                <div class="map-tag asia"><i class="fas fa-map-marker-alt"></i> Coreia do Sul 🇰🇷</div>
+                <div class="map-tag asia"><i class="fas fa-map-marker-alt"></i> Japão 🇯🇵</div>
+                <div class="map-tag asia"><i class="fas fa-map-marker-alt"></i> Tailândia 🇹🇭</div>
+                <div class="map-tag"><i class="fas fa-globe"></i> Europa</div>
+                <div class="map-tag"><i class="fas fa-globe"></i> Américas</div>
+                <div class="map-tag"><i class="fas fa-plane-departure"></i> Conhecer o Mundo</div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -409,7 +545,7 @@
             </div>
 
             <div class="short-letter-card scroll-animated">
-                <p class="short-letter-text">🌸 Meu coração escolhou você muito antes de eu perceber.</p>
+                <p class="short-letter-text">🌸 Meu coração escolheu você muito antes de eu perceber.</p>
             </div>
 
             <div class="short-letter-card scroll-animated">
@@ -445,44 +581,98 @@
             </div>
 
         </div>
-    </div>
-</section>
 
-<section id="historia" class="timeline-section">
-    <div class="container">
-        <h2 class="section-title"><i class="fas fa-moon"></i> Nossa História <i class="fas fa-moon"></i></h2>
-        <div class="timeline">
-            <div class="timeline-item left scroll-animated">
-                <div class="timeline-content">
-                    <div class="timeline-date">2024</div>
-                    <p>Quando nos conhecemos e o mundo ganhou uma nova cor.</p>
-                </div>
-            </div>
-            <div class="timeline-item right scroll-animated">
-                <div class="timeline-content">
-                    <div class="timeline-date">O Momento Especial</div>
-                    <p>O dia marcante em que você apoiou a cabeça no meu ombro.</p>
-                </div>
-            </div>
-            <div class="timeline-item left scroll-animated">
-                <div class="timeline-content">
-                    <div class="timeline-date">Nossa Sintonia</div>
-                    <p>As conversas intermináveis sobre BTS, os seus livros preferidos e os doramas que você tanto ama assistir.</p>
-                </div>
-            </div>
-            <div class="timeline-item right scroll-animated">
-                <div class="timeline-content">
-                    <div class="timeline-date">Simplicidade</div>
-                    <p>Os momentos mais simples ao seu lado que, sem explicação, se tornaram os mais inesquecíveis da minha vida.</p>
-                </div>
-            </div>
+        <div class="final-quote-box">
+            <p>Não fiz este site esperando mudar alguma coisa. Fiz porque algumas pessoas merecem mais do que uma simples mensagem. E, para mi, você sempre foi uma dessas pessoas.</p>
         </div>
     </div>
 </section>
 
-<section class="profile-section">
+<div id="poemModal" class="modal" onclick="closePoem(event)">
+    <div class="modal-content">
+        <span class="close-modal" onclick="document.getElementById('poemModal').style.display='none'">&times;</span>
+        <h3 class="modal-title" id="modalTitle">Título do Poema</h3>
+        <div class="modal-body" id="modalBody">Conteúdo do poema...</div>
+    </div>
+</div>
+
+<footer>
     <div class="container">
-        <h2 class="section-title"><i class="fas fa-star"></i> Quem é Ling Ling? <i class="fas fa-star"></i></h2>
+        <p>"Algumas pessoas passam pela nossa vida. Outras deixam marcas para sempre."</p>
+        <p style="font-size: 0.8em; margin-top: 15px; color: rgba(179,146,172,0.4);">Feito com carinho para Ling Ling 💜 2026</p>
+    </div>
+</footer>
+
+<script>
+    const poemasDB = {
+        1: { title: "Parte 1 — A Lua Que Eu Encontrei", text: "Você sempre foi como a lua em uma noite silenciosa...\n(Texto Completo do Poema)" },
+        2: { title: "Parte 2 — A Flor Que Nunca Deixei de Amar", text: "Eu sei que você ama a liberdade. Sei que seu coração não gosta de correntes..." },
+        3: { title: "Lua e Flor", text: "Você sempre me lembrou a lua. Bonita, distante e impossível de ignorar..." },
+        4: { title: "O Seu Sorriso", text: "Eu costumava pensar que faria você sorrir para que se apaixonasse por mim..." },
+        5: { title: "O Tempo Parou", text: "Existem momentos que duram apenas alguns segundos. Mas, de alguma forma..." },
+        6: { title: "Primeiro Amor", text: "Dizem que o primeiro amor nunca é esquecido. Talvez porque ele chegue..." },
+        7: { title: "Seu Próprio Mundo", text: "Você sempre viveu no seu próprio mundo. Um mundo cheio de sonhos..." },
+        8: { title: "Flor de Espinhos", text: "Você é a flor mais bonita que já encontrei. Mas também a que possui..." },
+        9: { title: "Entre Sonhos", text: "Você sonha em conhecer o mundo. Em viajar, descobrir lugares novos..." },
+        10: { title: "Ainda É Você", text: "O mais engraçado é que eu já tentei esquecer você. Mais de uma vez..." }
+    };
+
+    function openPoem(id) {
+        const poema = poemasDB[id];
+        if (poema) {
+            document.getElementById("modalTitle").innerText = poema.title;
+            document.getElementById("modalBody").innerText = poema.text;
+            document.getElementById("poemModal").style.display = "flex";
+        }
+    }
+
+    function closePoem(e) {
+        if (e.target.classList.contains('modal')) {
+            document.getElementById("poemModal").style.display = "none";
+        }
+    }
+
+    // Animações de estrelas e pétalas
+    function createStarFlash() {
+        const star = document.createElement("div");
+        star.classList.add("star-flash");
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + "px"; star.style.height = size + "px";
+        star.style.left = Math.random() * 100 + "vw"; star.style.top = Math.random() * 90 + "vh";
+        const duration = Math.random() * 2 + 1;
+        star.style.animationDuration = duration + "s";
+        document.body.appendChild(star);
+        setTimeout(() => { star.remove(); }, duration * 1000);
+    }
+    setInterval(createStarFlash, 400);
+
+    function createPetal() {
+        const petal = document.createElement("div");
+        petal.classList.add("petal");
+        const elements = ["🌸", "💜", "✨", "*"];
+        petal.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+        petal.style.left = Math.random() * 100 + "vw";
+        const size = Math.random() * 8 + 12; petal.style.fontSize = size + "px";
+        const duration = Math.random() * 4 + 5; petal.style.animationDuration = duration + "s";
+        petal.style.opacity = Math.random() * 0.4 + 0.4;
+        document.body.appendChild(petal);
+        setTimeout(() => { petal.remove(); }, duration * 1000);
+    }
+    setInterval(createPetal, 350);
+
+    const animatedElements = document.querySelectorAll('.scroll-animated');
+    function checkScroll() {
+        const triggerBottom = window.innerHeight * 0.85;
+        animatedElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if(elementTop < triggerBottom) element.classList.add('visible');
+        });
+    }
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+</script>
+</body>
+</html>        <h2 class="section-title"><i class="fas fa-star"></i> Quem é Ling Ling? <i class="fas fa-star"></i></h2>
         <div class="grid-profile">
             <div class="profile-card"><i class="fas fa-palette"></i><h3>Cor Favorita</h3><p>O roxo, que preenche todo o universo desse site.</p></div>
             <div class="profile-card"><i class="fas fa-music"></i><h3>Ama BTS</h3><p>O grupo favorito que embala seus dias e alegra o coração.</p></div>
