@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ling Ling 💜</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    :root {
+        --bg-gradient: linear-gradient(135deg, #090514 0%, #120a2a 50%, #1a0f3c 100%);
+        --purple-primary: #7a4fd3;
+        --purple-light: #b392ac;
+        --purple-dark: #3a1c6a;
+        --glass-bg: rgba(25, 14, 50, 0.45);
+        --glass-border: rgba(179, 146, 172, 0.2);
+        --text-color: #f3effa;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: var(--bg-gradient);
+        color: var(--text-color);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* Fundo Estrelado Fixo */
+    .sky-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+            radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+            radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+        background-size: 550px 550px, 350px 350px, 250px 250px;
+        background-position: 0 0, 40px 60px, 130px 270px;
+        z-index: 1;
+        opacity: 0.5;
+    }
+
+    .star-flash {
+        position: fixed;
+        background: white;
+        border-radius: 50%;
+        animation: flash linear forwards;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .petal {
+        position: fixed;
+        color: var(--purple-light);
+        font-size: 14px;
+        user-select: none;
+        pointer-events: none;
+        animation: fall linear forwards;
+        z-index: 2;
+    }
+
+    @keyframes flash {
+        0% { opacity: 0; transform: scale(0); }
+        50% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0); }
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.7; }
+        90% { opacity: 0.7; }
+        100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .section-title {
+        font-size: 2.2em;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #e2d5f3;
+        text-shadow: 0 0 10px rgba(122, 79, 211, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .section-title i {
+        color: var(--purple-primary);
+        font-size: 0.8em;
+    }
+
+    /* TELA INICIAL (HERO) */
+    .hero {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+    }
+
+    .moon {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle at 30% 30%, #fff 0%, #e2d5f3 20%, #7a4fd3 80%);
+        border-radius: 50%;
+        box-shadow: 0 0 60px rgba(122, 79, 211, 0.6), inset -10px -10px 30px rgba(0,0,0,0.5);
+        animation: floatMoon 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatMoon {
+        0% { transform: translateX(-50%) translateY(0px); }
+        100% { transform: translateX(-50%) translateY(-15px); }
+    }
+
+    .hero-content {
+        z-index: 11;
+        max-width: 750px;
+        padding: 0 20px;
+        margin-top: 100px;
+    }
+
+    .hero h1 {
+        font-size: 3em;
+        font-weight: 300;
+        line-height: 1.3;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+
+    .hero p {
+        font-size: 1.2em;
+        color: var(--purple-light);
+        margin-bottom: 40px;
+    }
+
+    .btn-start {
+        display: inline-block;
+        padding: 15px 40px;
+        background: transparent;
+        color: white;
+        border: 2px solid var(--purple-primary);
+        border-radius: 30px;
+        font-size: 16px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: all 0.4s ease;
+        box-shadow: 0 0 15px rgba(122, 79, 211, 0.2);
+        cursor: pointer;
+    }
+
+    .btn-start:hover {
+        background: var(--purple-primary);
+        box-shadow: 0 0 25px rgba(122, 79, 211, 0.6);
+        transform: translateY(-3px);
+    }
+
+    /* LINHA DO TEMPO */
+    .timeline-section { padding: 100px 0; }
+    .timeline { position: relative; max-width: 700px; margin: 0 auto; }
+    .timeline::after {
+        content: ''; position: absolute; width: 2px;
+        background: linear-gradient(to bottom, var(--purple-primary), transparent);
+        top: 0; bottom: 0; left: 50%; margin-left: -1px;
+    }
+    .timeline-item { padding: 10px 40px; position: relative; width: 50%; opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .timeline-item.visible { opacity: 1; transform: translateY(0); }
+    .timeline-item.left { left: 0; text-align: right; }
+    .timeline-item.right { left: 50%; text-align: left; }
+    .timeline-item::after { content: '💜'; position: absolute; width: 20px; height: 20px; right: -14px; top: 15px; z-index: 1; font-size: 14px; }
+    .timeline-item.right::after { left: -10px; }
+    .timeline-content { padding: 20px; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 15px; }
+    .timeline-date { font-weight: bold; color: var(--purple-light); margin-bottom: 5px; font-size: 1.1em; }
+
+    /* QUEM É LING LING */
+    .profile-section { padding: 100px 0; }
+    .grid-profile { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .profile-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 25px; border-radius: 15px; text-align: center; transition: transform 0.3s ease; }
+    .profile-card:hover { transform: translateY(-5px); border-color: rgba(122, 79, 211, 0.5); }
+    .profile-card i { font-size: 2em; color: var(--purple-primary); margin-bottom: 15px; }
+    .profile-card h3 { font-size: 1.2em; margin-bottom: 10px; }
+    .profile-card p { font-size: 0.95em; color: var(--purple-light); }
+
+    /* GALERIA DE POEMAS */
+    .poems-section { padding: 100px 0; }
+    .grid-poems { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+    
+    .poem-card {
+        background: rgba(20, 11, 40, 0.5);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        padding: 25px;
+        border-radius: 20px;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    .poem-card.visible { opacity: 1; transform: translateY(0); }
+    .poem-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: var(--purple-primary);
+        box-shadow: 0 10px 20px rgba(122, 79, 211, 0.2);
+    }
+    .poem-card h3 { font-size: 1.1em; color: #fff; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; line-height: 1.4;}
+    .poem-card h3 i { font-size: 0.85em; color: var(--purple-primary); margin-left: 10px; flex-shrink: 0;}
+    .poem-preview { font-style: italic; color: var(--purple-light); line-height: 1.6; font-size: 0.95em; }
+    .btn-read-more { margin-top: 15px; display: inline-block; font-size: 0.85em; color: var(--purple-primary); font-weight: bold; }
+
+    /* JANELA MODAL PARA EXIBIR POEMAS INTEIROS */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(5, 3, 10, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    .modal-content {
+        background: linear-gradient(145deg, #160f29, #0a0618);
+        border: 1px solid var(--purple-primary);
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 550px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 0 40px rgba(122, 79, 211, 0.4);
+        text-align: center;
+        animation: openModal 0.4s ease forwards;
+    }
+    @keyframes openModal {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    .close-modal {
+        position: absolute;
+        top: 15px; right: 20px;
+        font-size: 1.8em;
+        color: var(--purple-light);
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .close-modal:hover { color: white; }
+    .modal-title { font-size: 1.5em; color: #fff; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; line-height: 1.4; }
+    .modal-body { font-style: italic; line-height: 2; font-size: 1.1em; color: #e2d5f3; white-space: pre-line; }
+
+    /* SEÇÃO DIÁRIO */
+    .letters-section { padding: 100px 0; }
+    .grid-letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .letter-card { background: linear-gradient(145deg, #18112c, #0d081b); border: 1px solid rgba(122, 79, 211, 0.15); padding: 35px; border-radius: 4px; position: relative; }
+    .letter-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(179, 146, 172, 0.1); margin: 8px; pointer-events: none; }
+    .letter-header { font-size: 0.85em; color: var(--purple-light); margin-bottom: 15px; font-family: Georgia, serif; }
+    .letter-body { font-family: Georgia, serif; line-height: 1.8; color: #cbc3d6; }
+
+    /* SONHOS */
+    .dreams-section { padding: 100px 0; text-align: center; }
+    .dreams-intro { font-size: 1.3em; margin-bottom: 40px; color: var(--purple-light); font-style: italic; }
+    .map-container { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; margin-bottom: 50px; }
+    .asia-highlight { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
+    .map-tag { background: var(--purple-dark); border: 1px solid var(--purple-primary); padding: 8px 20px; border-radius: 20px; font-size: 0.9em; display: flex; align-items: center; gap: 8px; }
+    .map-tag.asia { background: rgba(122, 79, 211, 0.3); box-shadow: 0 0 10px rgba(122, 79, 211, 0.4); border-color: #b392ac; }
+    .final-quote-box { max-width: 700px; margin: 80px auto 0 auto; padding: 30px; border-left: 3px solid var(--purple-primary); background: rgba(255,255,255,0.03); text-align: left; }
+    .final-quote-box p { font-size: 1.15em; line-height: 1.8; color: #e2d5f3; }
+
+    footer { background: #05030b; padding: 50px 20px; text-align: center; border-top: 1px solid rgba(122, 79, 211, 0.1); }
+    footer p { color: var(--purple-light); }
+
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 2em; }
+        .moon { width: 130px; height: 130px; }
+        .timeline::after { left: 31px; }
+        .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 60px; }
+        .timeline-item::after { left: 22px !important; }
+    }
+</style>
+</head>
+<body>
+
+<div class="sky-background"></div>
+
+<section class="hero">
+    <div class="moon"></div>
+    <div class="hero-content">
+        <h1>Para a garota que mudou minha vida sem perceber.</h1>
+        <p>Uma coleção de lembranças, sentimentos e momentos que jamais esquecerei.</p>
+        <a href="#historia" class="btn-start">Iniciar Leitura <i class="fas fa-chevron-down" style="margin-left: 8px;"></i></a>
+    </div>
+</section>
+
+<section id="historia" class="timeline-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-moon"></i> Nossa História <i class="fas fa-moon"></i></h2>
+        <div class="timeline">
+            <div class="timeline-item left scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024</div>
+                    <p>Quando nos conhecemos e o mundo ganhou uma nova cor.</p>
+                </div>
+            </div>
+            <div class="timeline-item right scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">O Momento Especial</div>
+                    <p>O dia marcante em que você apoiou a cabeça no meu ombro.</p>
+                </div>
+            </div>
+            <div class="timeline-item left scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">Nossa Sintonia</div>
+                    <p>As conversas intermináveis sobre BTS, os seus livros preferidos e os doramas que você tanto ama assistir.</p>
+                </div>
+            </div>
+            <div class="timeline-item right scroll-animated">
+                <div class="timeline-content">
+                    <div class="timeline-date">Simplicidade</div>
+                    <p>Os momentos mais simples ao seu lado que, sem explicação, se tornaram os mais inesquecíveis da minha vida.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="profile-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-star"></i> Quem é Ling Ling? <i class="fas fa-star"></i></h2>
+        <div class="grid-profile">
+            <div class="profile-card"><i class="fas fa-palette"></i><h3>Cor Favorita</h3><p>O roxo, que preenche todo o universo desse site.</p></div>
+            <div class="profile-card"><i class="fas fa-music"></i><h3>Ama BTS</h3><p>O grupo favorito que embala seus dias e alegra o coração.</p></div>
+            <div class="profile-card"><i class="fas fa-tv"></i><h3>Ama Doramas</h3><p>Apaixonada por histórias envolventes, intensas e emocionantes.</p></div>
+            <div class="profile-card"><i class="fas fa-book"></i><h3>Ama Livros</h3><p>Devoradora de páginas, vivendo mil vidas através das leituras.</p></div>
+            <div class="profile-card"><i class="fas fa-dog"></i><h3>Ama Cachorros</h3><p>Tem um carinho e amor genuíno e puro pelos animais.</p></div>
+            <div class="profile-card"><i class="fas fa-plane"></i><h3>Sonhos Altos</h3><p>Almeja viajar por toda a Ásia e conhecer o mundo inteiro.</p></div>
+            <div class="profile-card"><i class="fas fa-utensils"></i><h3>"Estou com fome"</h3><p>A frase clássica e adorável que ela repete a qualquer hora.</p></div>
+            <div class="profile-card"><i class="fas fa-sparkles"></i><h3>Espontânea</h3><p>Dona de um jeito totalmente imprevisível, único e fascinante.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="poems-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-feather-alt"></i> Versos Para Ela <i class="fas fa-feather-alt"></i></h2>
+        <div class="grid-poems">
+            
+            <div class="poem-card scroll-animated" onclick="openPoem(1)">
+                <h3>Parte 1 — A Lua Que Eu Encontrei <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre foi como a lua em uma noite silenciosa, daquelas que iluminam...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(2)">
+                <h3>Parte 2 — A Flor Que Nunca Deixei de Amar <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Eu sei que você ama a liberdade. Sei que seu coração não gosta de correntes...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(3)">
+                <h3>Lua e Flor <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre me lembrou a lua. Bonita, distante e impossível de ignorar...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(4)">
+                <h3>O Seu Sorriso <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Eu costumava pensar que faria você sorrir para que se apaixonasse por mim...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(5)">
+                <h3>O Tempo Parou <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Existem momentos que duram apenas alguns segundos. Mas, de alguma forma...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(6)">
+                <h3>Primeiro Amor <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Dizem que o primeiro amor nunca é esquecido. Talvez porque ele chegue...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(7)">
+                <h3>Seu Próprio Mundo <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre viveu no seu próprio mundo. Um mundo cheio de sonhos...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(8)">
+                <h3>Flor de Espinhos <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você é a flor mais bonita que já encontrei. Mas também a que possui...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(9)">
+                <h3>Entre Sonhos <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sonha em conhecer o mundo. Em viajar, descobrir lugares novos e viver...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(10)">
+                <h3>Ainda É Você <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">O mais engraçado é que eu já tentei esquecer você. Mais de uma vez. Achei...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(11)">
+                <h3>Se Você Soubesse <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Se você soubesse quantas vezes pensei em dizer tudo o que sinto. Se soubesse...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(12)">
+                <h3>Seus Olhos <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Existem pessoas que chamam atenção pela beleza. Você chama atenção pelo...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(13)">
+                <h3>Saudade <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">A saudade mais estranha não é a de quem foi embora. É a de quem continua...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(14)">
+                <h3>Lua Cheia <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Toda vez que olho para uma lua bonita, lembro de você. Não porque vocês...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(15)">
+                <h3>O Que Ficou <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">O tempo levou muitas coisas. Levou momentos, pessoas e histórias. Mas não...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(16)">
+                <h3>Seu Sorriso Outra Vez <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Existem milhares de motivos para gostar de alguém. Mas confesso que um...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(17)">
+                <h3>Liberdade <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Você sempre gostou de liberdade. Nunca foi do tipo que gosta de correntes...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(18)">
+                <h3>Simples Assim <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Talvez eu nunca encontre as palavras perfeitas para explicar o que sinto...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(19)">
+                <h3>Conversas Bobas <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Engraçado como minhas lembranças favoritas não são momentos grandiosos...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+            <div class="poem-card scroll-animated" onclick="openPoem(20)">
+                <h3>Obrigado <i class="fas fa-envelope"></i></h3>
+                <p class="poem-preview">Talvez nossa história nunca seja como imaginei. Talvez ela nem tenha um...</p>
+                <span class="btn-read-more">Ler poema completo →</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div id="poemModal" class="modal" onclick="closePoem(event)">
+    <div class="modal-content">
+        <span class="close-modal" onclick="document.getElementById('poemModal').style.display='none'">&times;</span>
+        <h3 class="modal-title" id="modalTitle">Título do Poema</h3>
+        <div class="modal-body" id="modalBody">Conteúdo do poema...</div>
+    </div>
+</div>
+
+<section class="letters-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Páginas de um Diário <i class="fas fa-envelope-open-text"></i></h2>
+        <div class="grid-letters">
+            <div class="letter-card">
+                <div class="letter-header">Página de Notas I</div>
+                <div class="letter-body">Aqui você pode escrever textos extras mais longos, pensamentos diários ou lembranças de datas específicas futuramente direto no código.</div>
+            </div>
+            <div class="letter-card">
+                <div class="letter-header">Página de Notas II</div>
+                <div class="letter-body">Espaço livre reservado para futuras atualizações de mensagens e pequenas cartas românticas...</div>
+            </div>
+            <div class="letter-card">
+                <div class="letter-header">Página de Notas III</div>
+                <div class="letter-body">Mais um espaço guardado com carinho para registrar o que o coração mandar.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="dreams-section">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-compass"></i> O Mundo Que Espera Por Ela <i class="fas fa-compass"></i></h2>
+        <div class="dreams-intro">"Você me ensinou que o mundo é maior do que eu imaginava."</div>
+        
+        <div class="map-container">
+            <p style="margin-bottom: 25px; color: var(--purple-light);">Países e destinos marcados no coração para visitar e explorar:</p>
+            <div class="asia-highlight">
+                <div class="map-tag asia"><i class="fas fa-map-marker-alt"></i> Coreia do Sul 🇰🇷</div>
+                <div class="map-tag asia"><i class="fas fa-map-marker-alt"></i> Japão 🇯🇵</div>
+                <div class="map-tag asia"><i class="fas fa-map-marker-alt"></i> Tailândia 🇹🇭</div>
+                <div class="map-tag"><i class="fas fa-globe"></i> Europa</div>
+                <div class="map-tag"><i class="fas fa-globe"></i> Américas</div>
+                <div class="map-tag"><i class="fas fa-plane-departure"></i> Conhecer o Mundo</div>
+            </div>
+        </div>
+
+        <div class="final-quote-box">
+            <p>Não fiz este site esperando mudar alguma coisa. Fiz porque algumas pessoas merecem mais do que uma simples mensagem. E, para mim, você sempre foi uma dessas pessoas.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>"Algumas pessoas passam pela nossa vida. Outras deixam marcas para sempre."</p>
+        <p style="font-size: 0.8em; margin-top: 15px; color: rgba(179,146,172,0.4);">Feito com carinho para Ling Ling 💜 2026</p>
+    </div>
+</footer>
+
+<script>
+    // Banco de Dados Dinâmico com TODOS os poemas e subdivisões organizados
+    const poemasDB = {
+        1: {
+            title: "Parte 1 — A Lua Que Eu Encontrei",
+            text: `Você sempre foi como a lua em uma noite silenciosa,
+            daquelas que iluminam o céu sem pedir attention,
+            mas que acabam se tornando a única coisa que alguém consegue observar.
+
+            Seu cabelo escuro dançando com o vento,
+            seu jeito distante,
+            seus pensamentos perdidos em mundos que só você conhece.
+
+            Às vezes eu olhava para você e pensava
+            que existiam pessoas que nasceram para ser entendidas,
+            e outras que nasceram para ser admiradas.
+            Você sempre foi a segunda opção.
+
+            Desde os tempos da escola,
+            quando tudo ainda parecia simples,
+            meus olhos procuravam você antes de qualquer outra pessoa.
+            Não importava quem estivesse ao redor,
+            era sua presença que fazia diferença.
+
+            Você é como uma flor cheia de espinhos.
+            Uma flor rara,
+            dessas que poucas pessoas têm coragem de segurar.
+            Mas eu nunca tive medo dos seus espinhos,
+            porque aprendi que eles não existem para ferir,
+            existem para proteger algo precioso.
+
+            Você tem seus sonhos,
+            suas histórias,
+            seus doramas,
+            seus livros,
+            suas músicas,
+            e esse jeito único de enxergar o mundo.
+
+            Às vezes parece uma criança sonhando acordada,
+            imaginando o destino sem se preocupar com a estrada.
+            E talvez seja exatamente isso que faz você ser tão especial.
+            Porque enquanto muitas pessoas aprendem a viver,
+            você nunca deixou de sonhar.`
+        },
+        2: {
+            title: "Parte 2 — A Flor Que Nunca Deixei de Amar",
+            text: `Eu sei que você ama a liberdade.
+            Sei que seu coração não gosta de correntes,
+            que você prefere o céu aberto aos caminhos marcados.
+            E talvez seja por isso que eu nunca tentei prender você.
+            Amar alguém também é entender
+            que algumas pessoas nasceram para voar.
+
+            Talvez você nunca sinta por mim
+            o que eu sinto por você.
+            Talvez eu seja apenas uma pequena página
+            em um livro enorme da sua vida.
+            Mas você se tornou um capítulo inteiro da minha.
+
+            Porque mesmo nos dias em que você parecia distante,
+            mesmo nos momentos em que o mundo parecia pesado,
+            eu continuava admirando você.
+            Não pela pessoa perfeita que alguns imaginam.
+            Mas pela pessoa real que você é.
+
+            Com seus medos,
+            suas mudanças de humor,
+            suas dúvidas,
+            seus sonhos impossíveis
+            e sua força para continuar seguindo em frente.
+
+            Se um dia alguém me perguntar
+            o que eu vi em você,
+            eu não vou falar da sua aparência,
+            nem do seu sorriso,
+            nem de nada que os olhos conseguem enxergar.
+            Vou dizer que vi uma lua iluminando a noite,
+            uma flor protegida por espinhos,
+            e uma garota que, sem perceber,
+            ocupou um espaço no meu coração que ninguém mais conseguiu ocupar.
+
+            E mesmo que o destino escolha caminhos diferentes,
+            mesmo que a vida nos leve para lugares distantes,
+            sempre vou guardar a lembranças da garota
+            que me ensinou que amar alguém
+            nem sempre significa possuir.
+            Às vezes significa apenas desejar,
+            todos os dias,
+            que ela seja feliz.`
+        },
+        3: {
+            title: "Lua e Flor",
+            text: `Você sempre me lembrou a lua.
+            Bonita, distante e impossível de ignorar.
+            Enquanto outras pessoas entravam e saíam da minha vida, você ficou.
+            Talvez sem perceber, ocupou um lugar que ninguém mais conseguiu ocupar.
+
+            Eu ainda lembro do dia em que você colocou a cabeça no meu ombro.
+            Minha mente, que nunca para de pensar, finalmente encontrou silêncio.
+            Por alguns instantes, tudo parecia estar exatamente onde deveria estar.
+
+            Você é como uma flor cheia de espinhos.
+            Nem sempre é fácil se aproximar, mas isso nunca me impediu.
+            Porque aprendi que algumas flores são especiais justamente por serem difíceis de alcançar.
+
+            Talvez você nunca entenda o tamanho do sentimento que carrego.
+            Talvez nossa história nunca seja aquilo que eu imaginei.
+            Mas existe uma coisa que sempre será verdade:
+            entre todas as pessoas que conheci, você foi a única que transformou simples momentos em lembranças que vou carregar para sempre.`
+        },
+        4: {
+            title: "O Seu Sorriso",
+            text: `Eu costumava pensar que faria você sorrir para que se apaixonasse por mim.
+            Mas aconteceu exatamente o contrário.
+            Cada vez que você sorria, era eu quem me apaixonava mais.
+
+            Talvez você nunca tenha percebido o efeito que causava.
+            Talvez para você fosse apenas mais um sorriso comum.
+            Mas para mim era o suficiente para transformar um dia ruim em um dia bom.
+
+            Você sempre viveu no seu próprio mundo.
+            Entre livros, doramas, músicas e sonhos de conhecer lugares distantes.
+            E eu gostava de ouvir cada detalhe.
+            Porque quando você falava dos seus sonhos, seus olhos brilhavam de um jeito diferente.
+
+            Eu não sei onde a vida vai levar você.
+            Talvez para bem longe daqui.
+            Mas espero que, onde quer que esteja, continue sorrindo daquele mesmo jeito.
+            Porque foi esse sorriso que fez uma pessoa comum como eu acreditar, por um momento, que o mundo podia ser um lugar mais bonito.`
+        },
+        5: {
+            title: "O Tempo Parou",
+            text: `Existem momentos que duram apenas alguns segundos.
+            Mas, de alguma forma, permanecem para sempre.
+            Para mim, foi quando segurei sua mão.
+            Foi quando você encostou a cabeça no meu ombro.
+
+            Momentos simples para qualquer pessoa.
+            Mas não para mim.
+            Porque quando estava perto de você, o tempo parecia mais lento.
+            As preocupações desapareciam.
+            Os problemas perdiam a importância.
+            E tudo que eu queria era continuar ali.
+
+            Talvez você nunca entenda o quanto esses pequenos momentos significaram.
+            Mas são eles que guardo com mais carinho.
+            Porque, no fim, não foram os grandes acontecimentos que fizeram eu me apaixonar.
+            Foram os detalhes.
+            E você sempre foi o detalhe mais bonito da minha vida.`
+        },
+        6: {
+            title: "Primeiro Amor",
+            text: `Dizem que o primeiro amor nunca é esquecido.
+            Talvez porque ele chegue sem avisar.
+            Talvez porque seja a primeira vez que alguém ocupa nossos pensamentos sem pedir permissão.
+
+            Eu não planejei gostar de você.
+            Na verdade, tentei não gostar.
+            Tentei seguir outros caminhos, conhecer outras pessoas e deixar esse sentimento para trás.
+            Mas toda vez que eu pensava ter conseguido, alguma lembrança sua aparecia.
+
+            Seu sorriso.
+            Seu jeito espontâneo.
+            Suas histórias contadas do nada.
+            E eu percebia que ainda era você.
+
+            Não sei o que o futuro guarda para nós.
+            Mas sei que, entre todas as pessoas que passaram pela minha vida, você foi a primeira que transformou carinho em amor.
+            E por isso, independentemente do tempo que passar, sempre terá um lugar especial dentro de mim.`
+        },
+        7: {
+            title: "Seu Próprio Mundo",
+            text: `Você sempre viveu no seu próprio mundo.
+            Um mundo cheio de sonhos, livros, músicas e lugares que ainda deseja conhecer.
+
+            Às vezes eu sentia que estava olhando para uma estrela.
+            Perto o suficiente para admirar.
+            Longe demais para alcançar.
+
+            Mas mesmo assim, eu nunca deixei de olhar.
+            Porque algumas pessoas são tão especiais que basta existir para iluminar a vida de alguém.`
+        },
+        8: {
+            title: "Flor de Espinhos",
+            text: `Você é a flor mais bonita que já encontrei.
+            Mas também a que possui mais espinhos.
+
+            Muitas pessoas teriam medo de se aproximar.
+            Eu nunca tive.
+            Porque aprendi que os espinhos fazem parte de você.
+            E se eu gosto da flor, preciso aceitar tudo o que vem com ela.
+
+            Até porque as flores mais raras nunca crescem em jardins fáceis.`
+        },
+        9: {
+            title: "Entre Sonhos",
+            text: `Você sonha em conhecer o mundo.
+            Em viajar, descobrir lugares novos e viver histórias que ainda nem aconteceram.
+
+            E sem perceber, fez nascer esse sonho dentro de mim também.
+            Talvez um dia nossos caminhos sejam diferentes.
+            Mas sempre vou lembrar que foi você quem me ensinou a olhar além do horizonte.
+            E acreditar que existe muito mais esperando por nós.`
+        },
+        10: {
+            title: "Ainda É Você",
+            text: `O mais engraçado é que eu já tentei esquecer você.
+            Mais de uma vez.
+            Achei que o tempo faria isso por mim.
+
+            Mas o tempo passou.
+            As estações mudaram.
+            As pessoas mudaram.
+            E no final, ainda era você.
+
+            Talvez porque algumas pessoas não passam pela nossa vida.
+            Elas ficam.`
+        },
+        11: {
+            title: "Se Você Soubesse",
+            text: `Se você soubesse quantas vezes pensei em dizer tudo o que sinto.
+            Se soubesse quantas palavras ficaram presas na minha garganta.
+
+            Talvez entendesse algumas coisas.
+            Ou talvez não.
+            Mas existe uma verdade que nunca mudou:
+            Entre todas as histórias que vivi, você continua sendo a minha favorita.`
+        },
+        12: {
+            title: "Seus Olhos",
+            text: `Existem pessoas que chamam atenção pela beleza.
+            Você chama atenção pelo jeito que olha.
+
+            Porque quando seus olhos encontram os meus, por alguns segundos, parece que o mundo fica mais silencioso.
+            E mesmo depois de tanto tempo, ainda sinto a mesma coisa.
+            Como se fosse a primeira vez.`
+        },
+        13: {
+            title: "Saudade",
+            text: `A saudade mais estranha não é a de quem foi embora.
+            É a de quem continua aqui.
+
+            Porque às vezes você está distante, perdida no seu próprio mundo.
+            E mesmo sabendo que está bem, sinto falta de conversar com você.
+            Sinto falta da sua presença.
+            Sinto falta de você.`
+        },
+        14: {
+            title: "Lua Cheia",
+            text: `Toda vez que olho para uma lua bonita, lembro de você.
+            Não porque vocês sejam iguais.
+            Mas porque as duas possuem a mesma característica.
+
+            São impossíveis de ignorar.
+            Mesmo quando estão longe.
+            Mesmo quando parecem inalcançáveis.
+            Mesmo quando não percebem que alguém está olhando.`
+        },
+        15: {
+            title: "O Que Ficou",
+            text: `O tempo levou muitas coisas.
+            Levou momentos, pessoas e histórias.
+            Mas não levou as lembranças que tenho de você.
+
+            Elas continuam aqui.
+            Guardadas no mesmo lugar onde nasceram.
+            Dentro do meu coração.`
+        },
+        16: {
+            title: "Seu Sorriso Outra Vez",
+            text: `Existem milhares de motivos para gostar de alguém.
+            Mas confesso que um dos meus favoritos sempre foi seu sorriso.
+
+            Porque ele aparece de repente.
+            Sem avisar.
+            E quando aparece, consegue melhorar o meu dia sem fazer esforço algum.`
+        },
+        17: {
+            title: "Liberdade",
+            text: `Você sempre gostou de liberdade.
+            Nunca foi do tipo que gosta de correntes ou promessas.
+            E eu admiro isso.
+
+            Porque algumas pessoas nasceram para voar.
+            E mesmo que eu não possa voar ao seu lado para sempre, fico feliz por ter acompanhado uma parte da sua jornada.`
+        },
+        18: {
+            title: "Simples Assim",
+            text: `Talvez eu nunca encontre as palavras perfeitas para explicar o que sinto.
+            Mas se precisasse resumir tudo em uma única frase, seria simples:
+
+            Eu gosto de você.
+            Mais do que deveria.
+            Mais do que planejei.
+            E muito mais do que consigo demonstrar.`
+        },
+        19: {
+            title: "Conversas Bobas",
+            text: `Engraçado como minhas lembranças favoritas não são momentos grandiosos.
+            São conversas sem sentido.
+            Risadas aleatórias.
+            Assuntos que ninguém mais acharia interessantes.
+
+            Mas quando eram com você, se tornavam especiais.`
+        },
+        20: {
+            title: "Obrigado",
+            text: `Talvez nossa história nunca seja como imaginei.
+            Talvez ela nem tenha um final feliz.
+            Mas ainda assim sou grato.
+
+            Grato pelos sorrisos.
+            Pelas conversas.
+            Pelas lembranças.
+            E principalmente por você ter existido na minha vida.
+
+            Because algumas pessoas passam.
+            Você marcou.`
+        }
+    };
+
+    // Funções para abrir/fechar Modais com Poemas completos
+    function openPoem(id) {
+        const poema = poemasDB[id];
+        if (poema) {
+            document.getElementById("modalTitle").innerText = poema.title;
+            document.getElementById("modalBody").innerText = poema.text;
+            document.getElementById("poemModal").style.display = "flex";
+        }
+    }
+
+    function closePoem(e) {
+        if (e.target.classList.contains('modal')) {
+            document.getElementById("poemModal").style.display = "none";
+        }
+    }
+
+    // ANIMAÇÕES DE AMBIENTE (ESTRELAS E PÉTALAS ROXAS)
+    function createStarFlash() {
+        const star = document.createElement("div");
+        star.classList.add("star-flash");
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + "px"; star.style.height = size + "px";
+        star.style.left = Math.random() * 100 + "vw"; star.style.top = Math.random() * 90 + "vh";
+        const duration = Math.random() * 2 + 1;
+        star.style.animationDuration = duration + "s";
+        document.body.appendChild(star);
+        setTimeout(() => { star.remove(); }, duration * 1000);
+    }
+    setInterval(createStarFlash, 400);
+
+    function createPetal() {
+        const petal = document.createElement("div");
+        petal.classList.add("petal");
+        const elements = ["🌸", "💜", "✨", "*"];
+        petal.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+        petal.style.left = Math.random() * 100 + "vw";
+        const size = Math.random() * 8 + 12; petal.style.fontSize = size + "px";
+        const duration = Math.random() * 4 + 5; petal.style.animationDuration = duration + "s";
+        petal.style.opacity = Math.random() * 0.4 + 0.4;
+        document.body.appendChild(petal);
+        setTimeout(() => { petal.remove(); }, duration * 1000);
+    }
+    setInterval(createPetal, 350);
+
+    // ANIMAÇÃO DE REVELAÇÃO AO ROLAR A TELA (SCROLL REVEAL)
+    const animatedElements = document.querySelectorAll('.scroll-animated');
+    function checkScroll() {
+        const triggerBottom = window.innerHeight * 0.85;
+        animatedElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if(elementTop < triggerBottom) element.classList.add('visible');
+        });
+    }
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+</script>
+</body>
+</html>
