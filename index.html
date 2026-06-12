@@ -556,54 +556,91 @@
     .poems-grid { grid-template-columns: 1fr; }
   }
 
-  /* ─── ESTILOS DO BUQUÊ INTERATIVO GIGANTE ─── */
-  .bouquet-container {
-    text-align: center;
-    margin: 50px auto 20px;
-    padding: 20px;
+  /* ─── BUQUÊ DE FLORES REALISTA DA IMAGEM ─── */
+  .bouquet-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 80px auto 40px;
     position: relative;
-    z-index: 10;
+    z-index: 20;
+    text-align: center;
   }
-  .giant-bouquet {
-    font-size: min(130px, 30vw);
-    display: inline-block;
+
+  .luxurious-bouquet {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, rgba(15, 7, 27, 0) 70%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s;
-    filter: drop-shadow(0 0 25px rgba(192, 132, 252, 0.4));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 30px rgba(192, 132, 252, 0.5));
     user-select: none;
-    animation: bouquetGlow 3s ease-in-out infinite alternate;
   }
-  .giant-bouquet:hover {
-    transform: scale(1.15) rotate(4deg);
-    filter: drop-shadow(0 0 45px rgba(123, 47, 255, 0.85)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+
+  /* Criando as flores internas do buquê com gradientes roxos e lilás */
+  .luxurious-bouquet::before {
+    content: "💐";
+    font-size: 140px;
+    z-index: 2;
+    animation: floatingBouquet 4s ease-in-out infinite alternate;
   }
-  .giant-bouquet:active {
-    transform: scale(0.95) rotate(-3deg);
+
+  /* Brilho mágico de fundo igual ao da foto */
+  .luxurious-bouquet::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23c084fc" stroke-width="1" stroke-dasharray="2,4" opacity="0.6"/></svg>');
+    background-size: contain;
+    animation: rotateGlow 20s linear infinite;
+    z-index: 1;
   }
-  .bouquet-tip {
-    font-size: 12px;
-    color: var(--lilac);
-    opacity: 0.6;
-    margin-top: 15px;
+
+  .luxurious-bouquet:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 50px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+  }
+
+  .click-hint {
     font-family: 'Lato', sans-serif;
-    letter-spacing: 0.15em;
+    font-size: 11px;
+    color: var(--lilac);
     text-transform: uppercase;
-    animation: pulseTip 2s infinite;
+    letter-spacing: 0.2em;
+    margin-top: 20px;
+    opacity: 0.7;
+    animation: pulseHint 2s infinite;
   }
-  @keyframes bouquetGlow {
-    0% { filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.3)); }
-    100% { filter: drop-shadow(0 0 35px rgba(123, 47, 255, 0.6)); }
-  }
-  @keyframes pulseTip {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.9; }
-  }
-  .falling-flower {
+
+  /* Partículas da chuva de flores */
+  .falling-flower-fx {
     position: fixed;
-    z-index: 99999;
+    z-index: 100000;
     pointer-events: none;
     user-select: none;
     will-change: transform, opacity;
+  }
+
+  @keyframes floatingBouquet {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-10px) rotate(3deg); }
+  }
+
+  @keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulseHint {
+    0%, 100% { opacity: 0.4; transform: scale(0.98); }
+    50% { opacity: 0.9; transform: scale(1.02); }
   }
 
 </style>
@@ -1409,10 +1446,10 @@ Fiz porque algumas pessoas merecem mais do que uma simples mensagem.
 E para mim, você sempre foi uma dessas pessoas.</p>
   <p class="final-signature reveal">— com carinho, para sempre 💜</p>
 
-  <!-- BUQUÊ INTERATIVO GIGANTE (Ideia 2) -->
-  <div class="bouquet-container reveal">
-    <div class="giant-bouquet" onclick="chuvaDeFlores(event)">💐</div>
-    <p class="bouquet-tip">✨ Clique no buquê para dar um presente para ela ✨</p>
+  <!-- BUQUÊ INTERATIVO GIGANTE E BRILHANTE IGUAL À IMAGEM -->
+  <div class="bouquet-wrapper reveal">
+    <div class="luxurious-bouquet" onclick="dispararChuvaMágica(event)"></div>
+    <p class="click-hint">(clique no buquê)</p>
   </div>
 
 </section>
@@ -1521,61 +1558,48 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 revealEls.forEach(el => io.observe(el));
 
-// ─── SURPRESA DA CHUVA DE FLORES GIGANTE (Ideia 2) ───
-function chuvaDeFlores(event) {
-  // Efeito cascata: cria várias flores lindas caindo com rotação e tamanhos diferentes
-  const elementosFlores = ['🌸', '💜', '✨', '🌹', '🌷', '💐', '🌺', '🌻', '🦋'];
-  const totalFlores = 45; // Quantidade generosa para ficar lindo
+// ─── CHUVA MÁGICA DE FLORES DO BUQUÊ ───
+function dispararChuvaMágica(event) {
+  const floresLista = ['🌸', '💜', '✨', '🌹', '🌷', '🍇', '🔮', '🦋', '💐'];
+  const quantidade = 50;
+  
+  // Efeito de pulso rápido no clique
+  const bq = event.currentTarget;
+  bq.style.transform = 'scale(0.95)';
+  setTimeout(() => { bq.style.transform = ''; }, 200);
 
-  // Pequeno efeito visual no clique
-  const bouquet = event.target;
-  bouquet.style.transform = 'scale(0.9) rotate(-5deg)';
-  setTimeout(() => {
-    bouquet.style.transform = '';
-  }, 1500);
-
-  for (let i = 0; i < totalFlores; i++) {
+  for (let i = 0; i < quantidade; i++) {
     setTimeout(() => {
-      const flor = document.createElement('div');
-      flor.className = 'falling-flower';
-      flor.innerText = elementosFlores[Math.floor(Math.random() * elementosFlores.length)];
+      const f = document.createElement('div');
+      f.className = 'falling-flower-fx';
+      f.innerText = floresLista[Math.floor(Math.random() * floresLista.length)];
       
-      // Posição inicial aleatória no topo da tela
-      const inicioX = Math.random() * 100; // em vw
-      flor.style.left = inicioX + 'vw';
-      flor.style.top = '-50px';
+      const posX = Math.random() * 100;
+      f.style.left = posX + 'vw';
+      f.style.top = '-40px';
       
-      // Configurações visuais variadas e brilhantes
-      const tamanho = Math.random() * 25 + 20; // Tamanho ideal (entre 20px e 45px)
-      flor.style.fontSize = tamanho + 'px';
-      flor.style.opacity = Math.random() * 0.4 + 0.6; // Opacidade boa
+      const tam = Math.random() * 25 + 20; // 20px a 45px (bem visível)
+      f.style.fontSize = tam + 'px';
+      f.style.opacity = Math.random() * 0.4 + 0.6;
+      f.style.filter = `drop-shadow(0 0 ${Math.random() * 10 + 5}px rgba(192, 132, 252, 0.8))`;
       
-      // Sombras coloridas nas flores para combinar com o tema escuro/neon do site
-      flor.style.filter = `drop-shadow(0 0 ${Math.random() * 8 + 4}px rgba(192, 132, 252, 0.7))`;
-
-      // Tempo de duração da queda realista
-      const duracaoQueda = Math.random() * 2.5 + 2.5; // Entre 2.5s e 5s
-      flor.style.transition = `transform ${duracaoQueda}s linear, opacity ${duracaoQueda}s ease-out`;
-
-      document.body.appendChild(flor);
-
-      // Inicia a animação de descida e rotação aleatória em 3D
+      const tempo = Math.random() * 2 + 2.5; // queda suave de 2.5s a 4.5s
+      f.style.transition = `transform ${tempo}s linear, opacity ${tempo}s ease-out`;
+      
+      document.body.appendChild(f);
+      
       setTimeout(() => {
-        const fimX = inicioX + (Math.random() * 20 - 10); // Desvio leve para os lados na queda
-        const rotacao = Math.random() * 720 - 360; // Gira bastante ao cair
-        flor.style.transform = `translate(${fimX - inicioX}vw, 105vh) rotate(${rotacao}deg)`;
-        flor.style.opacity = '0';
-      }, 50);
-
-      // Limpa do HTML após a queda terminar
-      setTimeout(() => {
-        flor.remove();
-      }, duracaoQueda * 1000 + 100);
-    }, i * 45); // Pequeno atraso entre cada flor para dar efeito cascata contínuo
+        const descX = posX + (Math.random() * 20 - 10);
+        const rot = Math.random() * 720 - 360;
+        f.style.transform = `translate(${descX - posX}vw, 105vh) rotate(${rot}deg)`;
+        f.style.opacity = '0';
+      }, 40);
+      
+      setTimeout(() => { f.remove(); }, tempo * 1000 + 100);
+    }, i * 40);
   }
 }
 
 </script>
 </body>
 </html>
-
