@@ -404,8 +404,6 @@
   #dreams { padding-bottom: 80px; }
   .world-map-container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
 
-
-
   /* ─── DIARY / LETTERS ─── */
   #diary { padding-bottom: 80px; }
   .diary-entries {
@@ -556,100 +554,65 @@
     .poems-grid { grid-template-columns: 1fr; }
   }
 
-  /* ─── BUQUÊ DE FLORES REALISTA DA IMAGEM ─── */
-  .bouquet-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 80px auto 40px;
-    position: relative;
-    z-index: 20;
+  /* ─── BUQUÊ ILUMINADO DA IMAGEM (IDEIA 2) ─── */
+  .bouquet-section {
+    display: block;
     text-align: center;
-  }
-
-  .luxurious-bouquet {
+    margin: 60px auto 20px;
     position: relative;
-    width: 280px;
-    height: 280px;
-    background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, rgba(15, 7, 27, 0) 70%);
+    z-index: 10;
+  }
+  .luxurious-bouquet {
+    display: inline-block;
+    position: relative;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(7, 0, 15, 0) 70%);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: drop-shadow(0 0 30px rgba(192, 132, 252, 0.5));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s;
     user-select: none;
   }
-
-  /* Criando as flores internas do buquê com gradientes roxos e lilás */
   .luxurious-bouquet::before {
     content: "💐";
-    font-size: 140px;
-    z-index: 2;
+    font-size: 130px;
+    line-height: 260px;
+    display: block;
+    position: relative;
+    z-index: 5;
+    filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.6));
     animation: floatingBouquet 4s ease-in-out infinite alternate;
   }
-
-  /* Brilho mágico de fundo igual ao da foto */
-  .luxurious-bouquet::after {
-    content: "";
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23c084fc" stroke-width="1" stroke-dasharray="2,4" opacity="0.6"/></svg>');
-    background-size: contain;
-    animation: rotateGlow 20s linear infinite;
-    z-index: 1;
-  }
-
   .luxurious-bouquet:hover {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 50px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+    transform: scale(1.15) rotate(3deg);
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.65) 0%, rgba(7, 0, 15, 0) 70%);
+    filter: drop-shadow(0 0 40px rgba(192, 132, 252, 0.9));
   }
-
-  .click-hint {
-    font-family: 'Lato', sans-serif;
-    font-size: 11px;
+  .bouquet-caption {
+    font-size: 12px;
     color: var(--lilac);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-top: 20px;
-    opacity: 0.7;
-    animation: pulseHint 2s infinite;
+    opacity: 0.6;
+    margin-top: 15px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.1em;
   }
-
-  /* Partículas da chuva de flores */
-  .falling-flower-fx {
+  .fx-flower {
     position: fixed;
-    z-index: 100000;
+    z-index: 99999;
     pointer-events: none;
     user-select: none;
     will-change: transform, opacity;
   }
-
   @keyframes floatingBouquet {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-10px) rotate(3deg); }
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-12px); }
   }
-
-  @keyframes rotateGlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  @keyframes pulseHint {
-    0%, 100% { opacity: 0.4; transform: scale(0.98); }
-    50% { opacity: 0.9; transform: scale(1.02); }
-  }
-
 </style>
 </head>
 <body>
 
 <canvas id="sky-canvas"></canvas>
 
-<!-- HERO -->
 <section id="hero">
   <div class="moon"></div>
   <p class="hero-eyebrow">✦ uma carta digital ✦</p>
@@ -658,7 +621,6 @@
   <button class="btn-start" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Começar a leitura</button>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="sec-header reveal">
     <h2>Quem é Ling Ling?</h2>
@@ -681,7 +643,6 @@
   </div>
 </section>
 
-<!-- TIMELINE -->
 <section id="timeline">
   <div class="sec-header reveal">
     <h2>Nossa História</h2>
@@ -747,7 +708,6 @@
   </div>
 </section>
 
-<!-- POEMS READING -->
 <section id="poems">
   <div class="sec-header reveal">
     <h2>Para Você</h2>
@@ -770,8 +730,6 @@ seus pensamentos perdidos em mundos que só você conhece.
 que existiam pessoas que nasceram para ser entendidas,
 e outras que nasceram para ser admiradas.
 
-
-
 Desde os tempos da escola,
 quando tudo ainda parecia simples,
 meus olhos procuravam você antes de qualquer outra pessoa.
@@ -781,7 +739,7 @@ era sua presença que fazia diferença.
 Você é como uma flor cheia de espinhos.
 Uma flor rara,
 dessas que poucas pessoas têm coragem de segurar.
-Mas eu nunca tive medo dos seus espinhos,
+But eu nunca tive medo dos seus espinhos,
 porque aprendi que eles não existem para ferir,
 existem para proteger algo precioso.
 
@@ -1119,7 +1077,7 @@ Como se fosse a primeira vez.</div>
 
 É a de quem continua aqui.
 
-Porque às vezes você está distante, perdida no seu próprio mundo.
+Because às vezes você está distante, perdida no seu próprio mundo.
 
 E mesmo sabendo que está bem, sinto falta de conversar com você.
 
@@ -1301,7 +1259,6 @@ obrigado.</div>
   </div>
 </section>
 
-<!-- DREAMS -->
 <section id="dreams">
   <div class="sec-header reveal">
     <h2>Os Sonhos Que Você Me Ensinou a Ter</h2>
@@ -1323,7 +1280,6 @@ obrigado.</div>
   </div>
 </section>
 
-<!-- DIARY -->
 <section id="diary">
   <div class="sec-header reveal">
     <h2>Páginas de Diário</h2>
@@ -1349,7 +1305,7 @@ obrigado.</div>
     </div>
     <div class="diary-entry reveal">
       <div class="diary-date">🌙</div>
-      <div class="diary-text">Eu procurava você em todos os lugares sem perceber.</div>
+      <div class="diary-text">Eu procurava você in todos os lugares sem perceber.</div>
     </div>
     <div class="diary-entry reveal">
       <div class="diary-date">💜</div>
@@ -1402,7 +1358,6 @@ obrigado.</div>
   </div>
 </section>
 
-<!-- MEMORIES -->
 <section id="memories">
   <div class="sec-header reveal">
     <h2>Momentos Que Nunca Esqueci</h2>
@@ -1432,7 +1387,6 @@ obrigado.</div>
   </div>
 </section>
 
-<!-- FINAL -->
 <section id="final">
   <h2 class="final-title reveal">Se Um Dia Você Ler Isso</h2>
   <p class="final-letter reveal">Talvez você nunca sinta por mim o que eu sinto por você.
@@ -1446,15 +1400,12 @@ Fiz porque algumas pessoas merecem mais do que uma simples mensagem.
 E para mim, você sempre foi uma dessas pessoas.</p>
   <p class="final-signature reveal">— com carinho, para sempre 💜</p>
 
-  <!-- BUQUÊ INTERATIVO GIGANTE E BRILHANTE IGUAL À IMAGEM -->
-  <div class="bouquet-wrapper reveal">
-    <div class="luxurious-bouquet" onclick="dispararChuvaMágica(event)"></div>
-    <p class="click-hint">(clique no buquê)</p>
+  <div class="bouquet-section reveal">
+    <div class="luxurious-bouquet" onclick="chuvaDeFloresMágica(event)"></div>
+    <p class="bouquet-caption">(clique no buquê)</p>
   </div>
-
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p class="footer-quote">"Da garota que parecia a lua iluminando uma noite escura, para sempre guardada nas minhas lembranças."</p>
   <span class="footer-heart">✦ ✦ ✦</span>
@@ -1487,7 +1438,6 @@ function buildStars() {
 }
 
 function drawSky(t) {
-  // gradient background
   const g = ctx.createLinearGradient(0, 0, 0, H);
   g.addColorStop(0, '#07000f');
   g.addColorStop(0.5, '#0e0018');
@@ -1495,7 +1445,6 @@ function drawSky(t) {
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
 
-  // stars
   stars.forEach(s => {
     s.alpha = 0.3 + 0.5 * Math.abs(Math.sin(t * s.speed + s.phase));
     ctx.beginPath();
@@ -1504,7 +1453,6 @@ function drawSky(t) {
     ctx.fill();
   });
 
-  // occasional shooting star
   if (Math.random() < 0.004) {
     shootingStars.push({ x: Math.random() * W * 0.7, y: Math.random() * H * 0.4, len: 80 + Math.random() * 60, alpha: 1 });
   }
@@ -1558,48 +1506,46 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 revealEls.forEach(el => io.observe(el));
 
-// ─── CHUVA MÁGICA DE FLORES DO BUQUÊ ───
-function dispararChuvaMágica(event) {
-  const floresLista = ['🌸', '💜', '✨', '🌹', '🌷', '🍇', '🔮', '🦋', '💐'];
-  const quantidade = 50;
+// ─── CHUVA DE FLORES MÁGICA AO CLICAR NO BUQUÊ ───
+function chuvaDeFloresMágica(event) {
+  const elementos = ['🌸', '💜', '✨', '🌹', '🌷', '💐', '🌺', '🦋'];
+  const total = 45;
   
-  // Efeito de pulso rápido no clique
   const bq = event.currentTarget;
-  bq.style.transform = 'scale(0.95)';
-  setTimeout(() => { bq.style.transform = ''; }, 200);
+  bq.style.transform = 'scale(0.9) rotate(-4deg)';
+  setTimeout(() => { bq.style.transform = ''; }, 250);
 
-  for (let i = 0; i < quantidade; i++) {
+  for (let i = 0; i < total; i++) {
     setTimeout(() => {
       const f = document.createElement('div');
-      f.className = 'falling-flower-fx';
-      f.innerText = floresLista[Math.floor(Math.random() * floresLista.length)];
+      f.className = 'fx-flower';
+      f.innerText = elementos[Math.floor(Math.random() * elementos.length)];
       
-      const posX = Math.random() * 100;
-      f.style.left = posX + 'vw';
+      const startX = Math.random() * 100;
+      f.style.left = startX + 'vw';
       f.style.top = '-40px';
       
-      const tam = Math.random() * 25 + 20; // 20px a 45px (bem visível)
-      f.style.fontSize = tam + 'px';
-      f.style.opacity = Math.random() * 0.4 + 0.6;
-      f.style.filter = `drop-shadow(0 0 ${Math.random() * 10 + 5}px rgba(192, 132, 252, 0.8))`;
+      const tamanho = Math.random() * 20 + 25;
+      f.style.fontSize = tamanho + 'px';
+      f.style.opacity = Math.random() * 0.3 + 0.7;
+      f.style.filter = `drop-shadow(0 0 ${Math.random() * 8 + 4}px rgba(192, 132, 252, 0.8))`;
       
-      const tempo = Math.random() * 2 + 2.5; // queda suave de 2.5s a 4.5s
-      f.style.transition = `transform ${tempo}s linear, opacity ${tempo}s ease-out`;
+      const duracao = Math.random() * 2 + 2.5;
+      f.style.transition = `transform ${duracao}s linear, opacity ${duracao}s ease-out`;
       
       document.body.appendChild(f);
       
       setTimeout(() => {
-        const descX = posX + (Math.random() * 20 - 10);
-        const rot = Math.random() * 720 - 360;
-        f.style.transform = `translate(${descX - posX}vw, 105vh) rotate(${rot}deg)`;
+        const endX = startX + (Math.random() * 20 - 10);
+        const rodar = Math.random() * 720 - 360;
+        f.style.transform = `translate(${endX - startX}vw, 105vh) rotate(${rodar}deg)`;
         f.style.opacity = '0';
-      }, 40);
+      }, 50);
       
-      setTimeout(() => { f.remove(); }, tempo * 1000 + 100);
-    }, i * 40);
+      setTimeout(() => { f.remove(); }, duracao * 1000 + 100);
+    }, i * 45);
   }
 }
-
 </script>
 </body>
 </html>
