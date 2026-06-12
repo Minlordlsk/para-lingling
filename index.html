@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ling Ling — Uma Carta Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #07000f;
+    --deep: #0e0018;
+    --purple: #7b2fff;
+    --lilac: #c084fc;
+    --pale: #e9d5ff;
+    --white: #f8f0ff;
+    --gold: #fde8c8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── CANVAS / SKY ─── */
+  #sky-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ─── PETALS ─── */
+  .petal {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 50% 0 50% 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10%  { opacity: .6; }
+    90%  { opacity: .3; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ─── GLOBAL SECTIONS ─── */
+  section { position: relative; z-index: 2; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    position: relative;
+  }
+
+  .moon {
+    width: min(260px, 65vw);
+    height: min(260px, 65vw);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff9f0, #fde8c8 40%, #e8c89a 70%, #c4955a);
+    box-shadow:
+      0 0 60px 20px rgba(253,232,200,.25),
+      0 0 120px 50px rgba(253,232,200,.12),
+      0 0 220px 90px rgba(200,160,100,.08);
+    margin-bottom: 48px;
+    position: relative;
+    animation: moonFloat 6s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .moon::after {
+    content: '';
+    position: absolute; inset: -14px;
+    border-radius: 50%;
+    border: 1px solid rgba(253,232,200,.18);
+    animation: haloBreath 4s ease-in-out infinite;
+  }
+  @keyframes moonFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+  }
+  @keyframes haloBreath {
+    0%,100% { transform: scale(1); opacity: .18; }
+    50%      { transform: scale(1.06); opacity: .35; }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(14px, 3vw, 18px);
+    color: var(--lilac);
+    letter-spacing: .12em;
+    margin-bottom: 16px;
+    opacity: .8;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 58px);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--white);
+    max-width: 700px;
+  }
+
+  .hero-sub {
+    font-size: clamp(13px, 2.5vw, 16px);
+    color: var(--pale);
+    opacity: .7;
+    margin-top: 18px;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .btn-start {
+    margin-top: 40px;
+    padding: 14px 40px;
+    border: 1px solid rgba(192,132,252,.5);
+    background: rgba(123,47,255,.12);
+    color: var(--pale);
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all .4s;
+    backdrop-filter: blur(6px);
+  }
+  .btn-start:hover {
+    background: rgba(123,47,255,.35);
+    border-color: var(--lilac);
+    color: #fff;
+    box-shadow: 0 0 24px rgba(123,47,255,.4);
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .sec-header {
+    text-align: center;
+    padding: 100px 24px 60px;
+  }
+  .sec-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 5vw, 46px);
+    font-weight: 300;
+    color: var(--pale);
+  }
+  .sec-header p {
+    margin-top: 16px;
+    font-size: 15px;
+    color: rgba(233,213,255,.55);
+    max-width: 520px;
+    margin-left: auto; margin-right: auto;
+    line-height: 1.8;
+  }
+  .sec-line {
+    width: 48px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lilac), transparent);
+    margin: 20px auto 0;
+  }
+
+  /* ─── ABOUT CARDS ─── */
+  #about { padding-bottom: 80px; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    padding: 0 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .about-card {
+    background: rgba(123,47,255,.07);
+    border: 1px solid rgba(192,132,252,.15);
+    border-radius: 12px;
+    padding: 22px 16px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+  }
+  .about-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(192,132,252,.45);
+    box-shadow: 0 8px 32px rgba(123,47,255,.18);
+  }
+  .about-card .icon { font-size: 26px; margin-bottom: 10px; }
+  .about-card .label {
+    font-size: 13px;
+    color: var(--pale);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* ─── TIMELINE ─── */
+  #timeline { padding-bottom: 80px; }
+  .timeline-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+  }
+  .timeline-wrap::before {
+    content: '';
+    position: absolute;
+    left: 38px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(192,132,252,.4) 10%, rgba(192,132,252,.4) 90%, transparent);
+  }
+  .tl-item {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .tl-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 2px solid var(--lilac);
+    flex-shrink: 0;
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 12px rgba(123,47,255,.6);
+  }
+  .tl-content {}
+  .tl-year {
+    font-family: 'Dancing Script', cursive;
+    font-size: 13px;
+    color: var(--lilac);
+    letter-spacing: .1em;
+    margin-bottom: 4px;
+  }
+  .tl-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--pale);
+    margin-bottom: 6px;
+  }
+  .tl-desc {
+    font-size: 13px;
+    color: rgba(233,213,255,.5);
+    line-height: 1.7;
+  }
+
+  /* ─── POEMS ─── */
+  #poems { padding-bottom: 80px; }
+  .poems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .poem-card {
+    background: rgba(10,0,20,.6);
+    border: 1px solid rgba(192,132,252,.18);
+    border-radius: 14px;
+    padding: 28px 22px;
+    cursor: pointer;
+    transition: all .35s;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+  .poem-card::before {
+    content: '';
+    position: absolute;
+    top: -40%; left: -40%;
+    width: 80%; height: 80%;
+    background: radial-gradient(circle, rgba(123,47,255,.15), transparent 70%);
+    pointer-events: none;
+    transition: opacity .4s;
+    opacity: 0;
+  }
+  .poem-card:hover::before { opacity: 1; }
+  .poem-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(192,132,252,.5);
+    box-shadow: 0 12px 40px rgba(123,47,255,.2);
+  }
+  .poem-num {
+    font-family: 'Dancing Script', cursive;
+    font-size: 12px;
+    color: var(--purple);
+    margin-bottom: 10px;
+    letter-spacing: .1em;
+  }
+  .poem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--pale);
+    line-height: 1.35;
+    margin-bottom: 14px;
+  }
+  .poem-preview {
+    font-size: 12px;
+    color: rgba(233,213,255,.4);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .poem-open-btn {
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--lilac);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .7;
+  }
+
+  /* ─── MODAL ─── */
+  .poem-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .poem-modal.open { display: flex; }
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5,0,12,.85);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+  }
+  .modal-box {
+    position: relative;
+    z-index: 1;
+    background: rgba(14,0,24,.9);
+    border: 1px solid rgba(192,132,252,.25);
+    border-radius: 18px;
+    padding: 48px 40px;
+    max-width: 540px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: modalIn .4s ease;
+  }
+  @keyframes modalIn {
+    from { opacity:0; transform: translateY(24px) scale(.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+  .modal-box::-webkit-scrollbar { width: 4px; }
+  .modal-box::-webkit-scrollbar-track { background: transparent; }
+  .modal-box::-webkit-scrollbar-thumb { background: rgba(192,132,252,.3); border-radius: 2px; }
+  .modal-close {
+    position: absolute;
+    top: 18px; right: 22px;
+    background: none; border: none;
+    color: rgba(233,213,255,.4);
+    font-size: 22px;
+    cursor: pointer;
+    transition: color .2s;
+  }
+  .modal-close:hover { color: var(--lilac); }
+  .modal-poem-num {
+    font-family: 'Dancing Script', cursive;
+    font-size: 13px;
+    color: var(--purple);
+    letter-spacing: .1em;
+    margin-bottom: 8px;
+  }
+  .modal-poem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 300;
+    color: var(--pale);
+    margin-bottom: 28px;
+    line-height: 1.2;
+  }
+  .modal-poem-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px, 2.5vw, 18px);
+    font-weight: 300;
+    color: rgba(233,213,255,.85);
+    line-height: 2;
+    white-space: pre-wrap;
+    font-style: italic;
+  }
+
+  /* ─── DREAMS ─── */
+  #dreams { padding-bottom: 80px; }
+  .dreams-text {
+    max-width: 580px;
+    margin: 0 auto 40px;
+    padding: 0 24px;
+    text-align: center;
+    font-size: 15px;
+    color: rgba(233,213,255,.6);
+    line-height: 1.9;
+  }
+  .world-map-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .world-map-svg {
+    width: 100%;
+    border-radius: 14px;
+    background: rgba(10,0,20,.5);
+    border: 1px solid rgba(192,132,252,.12);
+    padding: 20px;
+  }
+
+
+
+  /* ─── DIARY / LETTERS ─── */
+  #diary { padding-bottom: 80px; }
+  .diary-entries {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .diary-entry {
+    background: rgba(10,0,20,.55);
+    border-left: 2px solid rgba(192,132,252,.35);
+    border-radius: 0 12px 12px 0;
+    padding: 28px 28px 28px 30px;
+    backdrop-filter: blur(8px);
+    transition: border-left-color .3s;
+  }
+  .diary-entry:hover { border-left-color: var(--lilac); }
+  .diary-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 13px;
+    color: var(--lilac);
+    margin-bottom: 12px;
+    opacity: .8;
+  }
+  .diary-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px,2.5vw,18px);
+    font-weight: 300;
+    color: rgba(233,213,255,.75);
+    line-height: 1.9;
+    font-style: italic;
+  }
+
+  /* ─── MEMORIES ─── */
+  #memories { padding-bottom: 80px; }
+  .memories-list {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .memory-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px 24px;
+    background: rgba(123,47,255,.06);
+    border: 1px solid rgba(192,132,252,.12);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    transition: all .3s;
+  }
+  .memory-item:hover {
+    background: rgba(123,47,255,.12);
+    border-color: rgba(192,132,252,.3);
+  }
+  .memory-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+  .memory-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px,2.5vw,18px);
+    font-weight: 300;
+    color: var(--pale);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* ─── FINAL MESSAGE ─── */
+  #final {
+    padding: 100px 24px 120px;
+    text-align: center;
+    position: relative;
+  }
+  .final-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 300;
+    color: var(--pale);
+    margin-bottom: 40px;
+  }
+  .final-letter {
+    max-width: 580px;
+    margin: 0 auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2.8vw, 20px);
+    font-weight: 300;
+    color: rgba(233,213,255,.75);
+    line-height: 2.1;
+    font-style: italic;
+    white-space: pre-line;
+  }
+  .final-signature {
+    margin-top: 50px;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(18px,3vw,24px);
+    color: var(--lilac);
+    opacity: .7;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 50px 24px 60px;
+    border-top: 1px solid rgba(192,132,252,.08);
+  }
+  .footer-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(13px, 2.3vw, 16px);
+    font-style: italic;
+    color: rgba(233,213,255,.35);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+  .footer-heart {
+    font-size: 18px;
+    color: var(--purple);
+    margin-top: 20px;
+    display: block;
+    opacity: .5;
+  }
+
+  /* ─── REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 540px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .poems-grid { grid-template-columns: 1fr 1fr; }
+    .modal-box { padding: 36px 22px; }
+    .music-cards { grid-template-columns: 1fr; }
+    .timeline-wrap::before { left: 34px; }
+  }
+  @media (max-width: 360px) {
+    .poems-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sky-canvas"></canvas>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="moon"></div>
+  <p class="hero-eyebrow">✦ uma carta digital ✦</p>
+  <h1 class="hero-title">Para a garota que mudou minha vida sem perceber.</h1>
+  <p class="hero-sub">Algumas pessoas passam pela nossa vida. Outras deixam marcas para sempre.</p>
+  <button class="btn-start" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Começar a leitura</button>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-header reveal">
+    <h2>Quem é Ling Ling?</h2>
+    <div class="sec-line"></div>
+    <p>Uma pessoa que carrega o mundo inteiro no olhar.</p>
+  </div>
+  <div class="cards-grid">
+    <div class="about-card reveal"><div class="icon">🎵</div><div class="label">Ama BTS de coração</div></div>
+    <div class="about-card reveal"><div class="icon">🎬</div><div class="label">Apaixonada por doramas</div></div>
+    <div class="about-card reveal"><div class="icon">📚</div><div class="label">Devora livros</div></div>
+    <div class="about-card reveal"><div class="icon">🐶</div><div class="label">Ama cachorros</div></div>
+    <div class="about-card reveal"><div class="icon">💜</div><div class="label">Cor favorita: Roxo</div></div>
+    <div class="about-card reveal"><div class="icon">✈️</div><div class="label">Sonha viajar pela Ásia</div></div>
+    <div class="about-card reveal"><div class="icon">🌍</div><div class="label">Sonha conhecer o mundo</div></div>
+    <div class="about-card reveal"><div class="icon">🍜</div><div class="label">Está sempre com fome</div></div>
+    <div class="about-card reveal"><div class="icon">🌸</div><div class="label">Tem um jeito espontâneo</div></div>
+    <div class="about-card reveal"><div class="icon">🌙</div><div class="label">Vive no próprio mundo</div></div>
+    <div class="about-card reveal"><div class="icon">🦋</div><div class="label">Ama sua liberdade</div></div>
+    <div class="about-card reveal"><div class="icon">⭐</div><div class="label">Nunca desiste facilmente</div></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="sec-header reveal">
+    <h2>Nossa História</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="timeline-wrap">
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">Quando nos conhecemos</div>
+        <div class="tl-desc">O início de algo que eu não sabia ainda o quanto mudaria tudo.</div>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">As conversas na escola</div>
+        <div class="tl-desc">Horas que passavam rápido demais quando você estava por perto.</div>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">As conversas sobre BTS</div>
+        <div class="tl-desc">Você falava com os olhos brilhando. Eu aprendi a gostar só por causa disso.</div>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">As conversas sobre doramas</div>
+        <div class="tl-desc">Você me contava os enredos como se fossem histórias reais. Para mim, eram.</div>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">Quando você colocou a cabeça no meu ombro</div>
+        <div class="tl-desc">Um segundo que guardei para sempre. Simples assim.</div>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">Os momentos segurando sua mão</div>
+        <div class="tl-desc">Aprendi que às vezes não precisa de palavras.</div>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">∞</div>
+        <div class="tl-title">Os momentos simples que se tornaram lembranças eternas</div>
+        <div class="tl-desc">Cada conversa boba, cada olhar, cada riso — tudo guardado aqui.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POEMS -->
+<section id="poems">
+  <div class="sec-header reveal">
+    <h2>Galeria de Poemas</h2>
+    <div class="sec-line"></div>
+    <p>Palavras que não consegui dizer. Então escrevi.</p>
+  </div>
+  <div class="poems-grid" id="poems-grid"></div>
+</section>
+
+<!-- POEM MODAL -->
+<div class="poem-modal" id="poem-modal">
+  <div class="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-poem-num" id="modal-num"></div>
+    <div class="modal-poem-title" id="modal-title"></div>
+    <div class="modal-poem-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- DREAMS -->
+<section id="dreams">
+  <div class="sec-header reveal">
+    <h2>Os Sonhos Que Você Me Ensinou a Ter</h2>
+    <div class="sec-line"></div>
+  </div>
+  <p class="dreams-text reveal">Antes de você, eu nunca pensava muito sobre o mundo. Aos poucos, seus sonhos se misturaram aos meus. Hoje, quando penso no futuro, lembro dos lugares que você queria conhecer.</p>
+  <div class="world-map-container reveal">
+    <svg class="world-map-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#c084fc" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#7b2fff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Simplified world continents -->
+      <!-- North America -->
+      <path d="M80,80 L160,70 L200,100 L220,150 L190,200 L150,220 L120,210 L90,180 L70,140 Z" fill="rgba(192,132,252,0.15)" stroke="rgba(192,132,252,0.3)" stroke-width="1"/>
+      <!-- South America -->
+      <path d="M155,230 L195,225 L215,260 L210,320 L185,350 L160,340 L145,300 L140,260 Z" fill="rgba(192,132,252,0.15)" stroke="rgba(192,132,252,0.3)" stroke-width="1"/>
+      <!-- Europe -->
+      <path d="M340,70 L390,65 L410,85 L400,110 L370,120 L345,105 Z" fill="rgba(192,132,252,0.15)" stroke="rgba(192,132,252,0.3)" stroke-width="1"/>
+      <!-- Africa -->
+      <path d="M345,125 L395,120 L420,150 L425,220 L400,280 L370,295 L340,270 L325,200 L330,150 Z" fill="rgba(192,132,252,0.15)" stroke="rgba(192,132,252,0.3)" stroke-width="1"/>
+      <!-- Asia (highlighted) -->
+      <path d="M415,60 L560,50 L620,80 L650,130 L640,180 L600,200 L540,210 L480,190 L440,160 L415,120 Z" fill="rgba(192,132,252,0.45)" stroke="rgba(192,132,252,0.8)" stroke-width="1.5"/>
+      <!-- Glow on Asia -->
+      <ellipse cx="530" cy="130" rx="120" ry="80" fill="url(#glow)" opacity="0.6"/>
+      <!-- Japan -->
+      <ellipse cx="620" cy="120" rx="14" ry="22" fill="rgba(123,47,255,0.6)" stroke="rgba(192,132,252,1)" stroke-width="1.5"/>
+      <!-- Korea -->
+      <ellipse cx="600" cy="115" rx="10" ry="15" fill="rgba(123,47,255,0.6)" stroke="rgba(192,132,252,1)" stroke-width="1.5"/>
+      <!-- China -->
+      <ellipse cx="555" cy="120" rx="40" ry="35" fill="rgba(123,47,255,0.4)" stroke="rgba(192,132,252,0.9)" stroke-width="1"/>
+      <!-- Southeast Asia -->
+      <path d="M540,195 L580,190 L590,230 L565,245 L540,235 Z" fill="rgba(123,47,255,0.5)" stroke="rgba(192,132,252,0.8)" stroke-width="1"/>
+      <!-- Oceania -->
+      <ellipse cx="630" cy="290" rx="55" ry="35" fill="rgba(192,132,252,0.12)" stroke="rgba(192,132,252,0.25)" stroke-width="1"/>
+      <!-- Star markers on Asian countries -->
+      <text x="617" y="124" text-anchor="middle" fill="#fde8c8" font-size="10">✦</text>
+      <text x="598" y="118" text-anchor="middle" fill="#fde8c8" font-size="8">✦</text>
+      <text x="555" y="124" text-anchor="middle" fill="#fde8c8" font-size="9">✦</text>
+      <text x="565" y="215" text-anchor="middle" fill="#fde8c8" font-size="8">✦</text>
+      <!-- Labels -->
+      <text x="620" y="148" text-anchor="middle" fill="rgba(233,213,255,0.8)" font-size="9" font-family="Georgia,serif">Japão</text>
+      <text x="556" y="148" text-anchor="middle" fill="rgba(233,213,255,0.8)" font-size="9" font-family="Georgia,serif">China</text>
+      <text x="565" y="255" text-anchor="middle" fill="rgba(233,213,255,0.8)" font-size="8" font-family="Georgia,serif">Tailândia</text>
+      <text x="530" y="42" text-anchor="middle" fill="rgba(233,213,255,0.5)" font-size="11" font-family="Georgia,serif" font-style="italic">Ásia — seus sonhos</text>
+    </svg>
+  </div>
+</section>
+
+<!-- DIARY -->
+<section id="diary">
+  <div class="sec-header reveal">
+    <h2>Páginas de Diário</h2>
+    <div class="sec-line"></div>
+    <p>Pensamentos que escrevi em noites de saudade.</p>
+  </div>
+  <div class="diary-entries">
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌙</div>
+      <div class="diary-text">Você entrou na minha vida sem pedir licença e acabou ficando.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">💜</div>
+      <div class="diary-text">Algumas pessoas são especiais. Você é inesquecível.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌸</div>
+      <div class="diary-text">Seu sorriso sempre foi meu lugar favorito.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">⭐</div>
+      <div class="diary-text">Talvez você nunca saiba o quanto significou para mim.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌙</div>
+      <div class="diary-text">Eu procurava você em todos os lugares sem perceber.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">💜</div>
+      <div class="diary-text">Você transformou momentos simples em lembranças eternas.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌸</div>
+      <div class="diary-text">Meu coração escolheu você muito antes de eu perceber.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">⭐</div>
+      <div class="diary-text">A lua me lembra você: bonita, distante e impossível de ignorar.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌙</div>
+      <div class="diary-text">Você foi meu primeiro amor e continua sendo minha lembrança favorita.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">💜</div>
+      <div class="diary-text">Mesmo no silêncio, você continua presente nos meus pensamentos.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌸</div>
+      <div class="diary-text">Você me ensinou a sonhar com lugares que eu nunca imaginei conhecer.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">⭐</div>
+      <div class="diary-text">Algumas histórias não precisam de um final para serem importantes.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌙</div>
+      <div class="diary-text">Seu nome mora em pensamentos que o tempo nunca levou.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">💜</div>
+      <div class="diary-text">Entre bilhões de pessoas, meu coração encontrou você.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🌸</div>
+      <div class="diary-text">Se eu pudesse guardar apenas uma lembrança, escolheria qualquer momento ao seu lado.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">✨</div>
+      <div class="diary-text">Não sei se você vai ler algum dia. Mas fiz este site porque você merecia mais do que uma mensagem qualquer. Você sempre mereceu mais.</div>
+    </div>
+    <div class="diary-entry reveal">
+      <div class="diary-date">🎬</div>
+      <div class="diary-text">Me contou sobre o último dorama que assistiu com tanto entusiasmo que eu quis assistir só para poder falar sobre ele com você. Nunca cheguei a contar isso.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMORIES -->
+<section id="memories">
+  <div class="sec-header reveal">
+    <h2>Momentos Que Nunca Esqueci</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="memories-list">
+    <div class="memory-item reveal">
+      <span class="memory-icon">🌙</span>
+      <span class="memory-text">Quando você colocou a cabeça no meu ombro — e o tempo parou completamente.</span>
+    </div>
+    <div class="memory-item reveal">
+      <span class="memory-icon">🤝</span>
+      <span class="memory-text">Quando segurou minha mão sem dizer nada — e não precisava dizer nada mesmo.</span>
+    </div>
+    <div class="memory-item reveal">
+      <span class="memory-icon">💬</span>
+      <span class="memory-text">Quando falávamos de coisas sem sentido por horas — e eram as melhores horas.</span>
+    </div>
+    <div class="memory-item reveal">
+      <span class="memory-icon">✨</span>
+      <span class="memory-text">Quando você sorria — do jeito espontâneo, sem querer, de repente — e eu ficava sem palavras.</span>
+    </div>
+    <div class="memory-item reveal">
+      <span class="memory-icon">💜</span>
+      <span class="memory-text">Quando eu esquecia todos os meus problemas perto de você — como se o mundo ficasse menor e mais simples.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section id="final">
+  <h2 class="final-title reveal">Se Um Dia Você Ler Isso</h2>
+  <p class="final-letter reveal">Talvez você nunca sinta por mim o que eu sinto por você.
+Talvez nossa história nunca tenha o final que imaginei.
+
+Mas isso não muda o fato de que você foi uma das pessoas mais importantes da minha vida.
+
+Não fiz este site esperando mudar alguma coisa.
+Fiz porque algumas pessoas merecem mais do que uma simples mensagem.
+
+E para mim, você sempre foi uma dessas pessoas.</p>
+  <p class="final-signature reveal">— com carinho, para sempre 💜</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-quote">"Da garota que parecia a lua iluminando uma noite escura, para sempre guardada nas minhas lembranças."</p>
+  <span class="footer-heart">✦ ✦ ✦</span>
+</footer>
+
+<script>
+// ─── POEMS DATA ───
+const poems = [
+  {
+    title: "A Lua Que Eu Encontrei",
+    preview: "No céu havia tantas estrelas...",
+    body: `No céu havia tantas estrelas,
+mas meus olhos só encontravam uma.
+Não era a mais brilhante,
+mas era a única que me fazia esquecer
+que o céu existia.
+
+Você chegou como a lua cheia
+em uma noite que eu não esperava —
+suave, luminosa, distante o suficiente
+para que eu não conseguisse alcançar,
+mas perto demais para ignorar.
+
+E desde então
+toda noite escura
+tem o seu rosto.`
+  },
+  {
+    title: "A Flor Que Eu Nunca Deixei de Amar",
+    preview: "Há flores que crescem em silêncio...",
+    body: `Há flores que crescem em silêncio,
+sem pedir atenção,
+sem precisar de aplausos —
+e ainda assim perfumam tudo ao redor.
+
+Você é assim.
+Espontânea como flor silvestre,
+impossível de cultivar no jardim de ninguém
+porque sempre soube
+que pertencia ao vento.
+
+Eu não tentei te prender.
+Só aprendi a reconhecer
+o cheiro que você deixa
+em tudo que toca.`
+  },
+  {
+    title: "A Garota Que Nunca Saiu de Mim",
+    preview: "Algumas pessoas passam...",
+    body: `Algumas pessoas passam
+como nuvens de inverno —
+rápidas, cinzas, sem deixar rastro.
+
+Outras ficam.
+Não no mesmo lugar,
+não da mesma forma —
+mas ficam.
+
+Como uma melodia
+que você ouviu uma vez
+e nunca mais conseguiu parar de cantarolar.
+
+Como o cheiro de chuva
+que te lembra de uma tarde
+que você nem sabia
+que estava gravando na memória.
+
+Você ficou assim.
+Sem avisar.
+Sem permissão.
+E eu não quis pedir de volta.`
+  },
+  {
+    title: "Lua e Flor",
+    preview: "A lua não precisa tocar a flor...",
+    body: `A lua não precisa tocar a flor
+para fazê-la florescer.
+Basta existir
+lá no alto,
+fiel, silenciosa, constante.
+
+E a flor não precisa que a lua saiba
+o quanto aquela luz importa.
+Ela simplesmente cresce em direção a ela
+porque é a coisa mais natural do mundo
+crescer em direção àquilo que você ama.
+
+Nós fomos assim.
+Lua e flor.
+Distância certa.
+Amor errado de lugar.
+Mas real demais para fingir
+que nunca existiu.`
+  },
+  {
+    title: "O Seu Sorriso",
+    preview: "Não era perfeito, era melhor...",
+    body: `Não era perfeito.
+Era melhor.
+
+Era o sorriso que aparecia
+quando você não estava tentando sorrir —
+quando algo genuinamente te alcançava
+e escapava pelos seus olhos
+antes mesmo de chegar à boca.
+
+Esse.
+Esse específico.
+
+O que eu nunca vou conseguir descrever
+direito para ninguém,
+mas que vou reconhecer imediatamente
+se um dia, em algum lugar,
+ele aparecer de novo.`
+  },
+  {
+    title: "O Tempo Parou",
+    preview: "Existe um momento exato...",
+    body: `Existe um momento exato
+em que o tempo para.
+Não na ficção científica —
+na vida real.
+
+É quando você está ao lado de alguém
+e de repente percebe
+que não tem ideia de quanto tempo passou.
+
+Uma hora? Dez minutos? Uma tarde inteira?
+
+Não importa.
+O relógio existia,
+mas você tinha me feito esquecer
+que eu precisava olhar pra ele.
+
+E eu escolhi esquecer
+todas as vezes que pude.`
+  },
+  {
+    title: "Primeiro Amor",
+    preview: "Ninguém te avisa sobre o primeiro amor...",
+    body: `Ninguém te avisa sobre o primeiro amor.
+Sobre como ele não pede licença.
+Sobre como ele não chega com avisos,
+com setas indicando direção,
+com um manual de como sobreviver.
+
+Ele simplesmente acontece.
+No meio de uma conversa boba.
+No meio de uma tarde comum.
+No meio de um riso que você não esperava.
+
+E você percebe tarde demais.
+Quando já não é mais possível voltar
+para antes de saber.`
+  },
+  {
+    title: "Seu Próprio Mundo",
+    preview: "Você tem um mundo dentro de você...",
+    body: `Você tem um mundo dentro de você.
+
+Com cidades que ninguém mapeou,
+com idiomas que só você fala,
+com leis de física próprias —
+onde a gravidade é mais leve
+e as estrelas ficam mais perto.
+
+Às vezes eu tentava entrar.
+Ficava na porta,
+olhando através do vidro,
+admirando o que via
+sem entender metade.
+
+Mas era bonito demais para sair.
+Então eu ficava.
+Olhando.
+Guardando.
+Sem pressa.`
+  },
+  {
+    title: "Flor de Espinhos",
+    preview: "Você não era fácil de entender...",
+    body: `Você não era fácil de entender.
+Não era fácil de alcançar.
+
+Havia espinhos onde eu menos esperava —
+palavras que cortavam sem querer,
+silêncios que confundiam,
+momentos em que você se fechava
+como rosa no fim do dia.
+
+Mas havia a flor também.
+Delicada, impossível, rara.
+
+E eu aprendi que
+quem quer apenas flores fáceis
+nunca vai entender a beleza
+de algo que exige cuidado.`
+  },
+  {
+    title: "Entre Sonhos",
+    preview: "Existe um lugar entre o sono e o despertar...",
+    body: `Existe um lugar
+entre o sono e o despertar
+onde os pensamentos são livres
+e a lógica não governa.
+
+É lá que você mora, às vezes.
+
+Naquele intervalo de segundos
+antes de eu lembrar
+de quem eu sou
+e do que o dia exige.
+
+Lá você sorri
+sem motivo específico.
+Lá as conversas não terminam.
+Lá nenhuma distância existe.
+
+E eu aprendi a não ter pressa
+de acordar.`
+  },
+  {
+    title: "Ainda É Você",
+    preview: "Depois de tudo...",
+    body: `Depois de tudo —
+das estações que mudaram,
+das distâncias que cresceram,
+das noites que passaram
+sem uma mensagem sequer —
+
+ainda é você.
+
+Quando uma música começa
+e meu primeiro pensamento
+é se você conhece.
+
+Quando vejo algo bonito
+e a primeira coisa que quero
+é te contar.
+
+Quando o dia é difícil
+e imagino que bastaria
+a sua voz para ficar mais leve.
+
+Ainda é você.
+Sempre foi.`
+  },
+  {
+    title: "Se Você Soubesse",
+    preview: "Se você soubesse quantas vezes...",
+    body: `Se você soubesse quantas vezes
+reli nossas conversas
+só para ouvir sua voz na minha cabeça
+recitando cada palavra.
+
+Se você soubesse que guardo
+cada detalhe que você me contou —
+os livros favoritos,
+os episódios que te fizeram chorar,
+o nome do seu cachorro.
+
+Se você soubesse que às vezes
+olho para o céu à noite
+e penso que você provavelmente
+está olhando também,
+em algum lugar,
+sem saber.
+
+Talvez fosse demais.
+Talvez fosse suficiente.`
+  },
+  {
+    title: "Seus Olhos",
+    preview: "Olhos que falam antes da boca...",
+    body: `Olhos que falam antes da boca.
+Que revelam o que você está pensando
+antes de você decidir se vai dizer.
+
+Olhos que brilham quando você fala
+de algo que ama,
+que ficam sérios quando algo te entristece
+mesmo quando você está sorrindo,
+que se perdem no horizonte
+quando você está em outro mundo.
+
+Aprendi a ler cada expressão.
+Não de propósito.
+Aprendi porque olhava demais.
+E não me arrependo de nada.`
+  },
+  {
+    title: "Saudade",
+    preview: "Em português existe uma palavra...",
+    body: `Em português existe uma palavra
+que não tem tradução perfeita
+em nenhum outro idioma.
+
+Saudade.
+
+É o que se sente
+por algo que foi bom,
+por alguém que importou,
+pela ausência de uma presença
+que você queria ter perto.
+
+Não é tristeza.
+Não é apenas falta.
+É quase amor ainda ativo,
+funcionando em silêncio,
+sem destino certo.
+
+É o que eu sinto
+quando penso em você.
+Saudade.
+A palavra mais bonita e mais difícil
+que o idioma inventou.`
+  },
+  {
+    title: "Lua Cheia",
+    preview: "Noites de lua cheia são diferentes...",
+    body: `Noites de lua cheia são diferentes.
+Mais quietas.
+Mais longas.
+Com aquela luz estranha
+que não é dia, não é escuridão —
+é outra coisa.
+
+Você era assim.
+Não encaixava em nenhuma categoria simples.
+Não era o que eu esperava,
+não era o que eu temia —
+era outra coisa.
+
+Mais rara.
+Mais difícil de entender.
+Mais impossível de ignorar.
+
+Como lua cheia.
+Que aparece uma vez por mês
+e muda o humor de tudo.`
+  },
+  {
+    title: "O Que Ficou",
+    preview: "Das coisas que ficam...",
+    body: `Das coisas que ficam
+depois que alguém passa pela nossa vida:
+
+Um jeito diferente de ouvir música.
+A vontade de assistir doramas.
+O hábito de olhar para a lua
+em vez de para o telefone.
+A certeza de que silêncio bom existe.
+A prova de que é possível
+sentir tanto
+sem dizer quase nada.
+
+Isso ficou.
+Você deixou isso.
+E eu carrego
+sem peso nenhum.`
+  },
+  {
+    title: "Seu Sorriso Outra Vez",
+    preview: "Se eu pudesse pedir uma coisa...",
+    body: `Se eu pudesse pedir uma coisa —
+só uma —
+não seria um grande gesto.
+
+Não seria uma viagem,
+não seria uma declaração,
+não seria mais tempo.
+
+Seria ver o seu sorriso uma vez mais.
+O espontâneo.
+O que escapa antes de você perceber.
+O que aparece quando algo realmente te alcança.
+
+Só uma vez mais
+e eu teria o suficiente
+para o resto de todo o tempo que restar.`
+  },
+  {
+    title: "Liberdade",
+    preview: "Você sempre amou sua liberdade...",
+    body: `Você sempre amou sua liberdade.
+Isso era visível em tudo —
+na forma de caminhar,
+na forma de falar,
+na forma de existir
+sem pedir permissão para ninguém.
+
+E eu nunca quis mudar isso.
+
+Porque a coisa mais bonita
+que alguém pode ser
+é exatamente o que é —
+sem precisar se encaixar
+em nenhuma expectativa,
+em nenhum molde,
+em nenhum conceito de quem deveria ser.
+
+Você era livre.
+E isso era lindo.`
+  },
+  {
+    title: "Simples Assim",
+    preview: "Não foi complicado...",
+    body: `Não foi complicado.
+
+Foi simples assim:
+você apareceu,
+eu prestei atenção,
+e o mundo ficou um pouco mais interessante.
+
+Sem drama.
+Sem cenas.
+Sem grandes acontecimentos.
+
+Só você existindo
+do seu jeito espontâneo,
+vivendo no seu próprio mundo,
+e eu do lado de fora
+achando aquele mundo
+o lugar mais bonito que já vi.
+
+Simples assim.
+E suficiente.`
+  },
+  {
+    title: "Conversas Bobas",
+    preview: "As melhores conversas...",
+    body: `As melhores conversas
+não têm assunto fixo.
+
+Começam com uma coisa,
+viram outra,
+se perdem no meio,
+voltam de outro ângulo.
+
+As melhores conversas
+são as que você não percebe
+que estão acontecendo
+até que alguém precise ir embora
+e você percebe que passou
+muito mais tempo do que planejou.
+
+Nossas conversas eram assim.
+Bobas.
+Sem rumo.
+As melhores que já tive.`
+  },
+  {
+    title: "Destino",
+    preview: "Não sei se acredito em destino...",
+    body: `Não sei se acredito em destino.
+Mas sei que quando certas pessoas aparecem
+na hora certa,
+do jeito certo,
+com as palavras certas —
+
+fica difícil acreditar
+que foi só coincidência.
+
+Você apareceu
+quando eu menos esperava.
+No lugar menos provável.
+Do jeito mais espontâneo possível.
+
+E mudou muita coisa
+sem perceber que estava mudando.
+
+Se isso é destino
+ou só sorte —
+eu agradeço de qualquer forma.`
+  },
+  {
+    title: "Mesmo Assim",
+    preview: "Mesmo que você nunca saiba...",
+    body: `Mesmo que você nunca saiba
+o quanto importou.
+
+Mesmo que nossas histórias
+tenham tomado caminhos diferentes.
+
+Mesmo que o tempo passe
+e as conversas se tornem raras
+e os dias fiquem mais cheios
+de outras coisas.
+
+Mesmo assim —
+em algum canto quieto
+de onde guardo o que é importante —
+você vai estar lá.
+
+Inteira.
+Exatamente como era.
+Exatamente como foi bom.`
+  },
+  {
+    title: "Obrigado",
+    preview: "Obrigado por existir...",
+    body: `Obrigado por existir
+do jeito que você existe.
+
+Por ser espontânea
+quando o mundo pede que as pessoas sejam calculadas.
+
+Por amar livremente —
+BTS, doramas, livros, cachorros —
+com a intensidade de quem não tem vergonha
+de gostar do que gosta.
+
+Por ter colocado a cabeça no meu ombro
+sem saber que aquilo
+ia durar comigo para sempre.
+
+Por ter segurado minha mão.
+Por ter rido comigo.
+Por ter me feito esquecer, por alguns momentos,
+que havia outras preocupações no mundo.
+
+Obrigado.
+Por tudo que foi.
+Por tudo que ficou.
+Por tudo que você é.`
+  }
+];
+
+// ─── BUILD POEMS GRID ───
+const grid = document.getElementById('poems-grid');
+poems.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'poem-card reveal';
+  card.innerHTML = `
+    <div class="poem-num">✦ Poema ${i + 1}</div>
+    <div class="poem-title">${p.title}</div>
+    <div class="poem-preview">${p.preview}</div>
+    <div class="poem-open-btn">Ler poema →</div>
+  `;
+  card.addEventListener('click', () => openModal(i));
+  grid.appendChild(card);
+});
+
+function openModal(i) {
+  document.getElementById('modal-num').textContent = `✦ Poema ${i + 1}`;
+  document.getElementById('modal-title').textContent = poems[i].title;
+  document.getElementById('modal-body').textContent = poems[i].body;
+  const modal = document.getElementById('poem-modal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('poem-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ─── CANVAS SKY ───
+const canvas = document.getElementById('sky-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, stars = [], shootingStars = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  buildStars();
+}
+
+function buildStars() {
+  stars = [];
+  for (let i = 0; i < 220; i++) {
+    stars.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.2 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.004 + 0.002,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function drawSky(t) {
+  // gradient background
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#07000f');
+  g.addColorStop(0.5, '#0e0018');
+  g.addColorStop(1, '#130022');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  // stars
+  stars.forEach(s => {
+    s.alpha = 0.3 + 0.5 * Math.abs(Math.sin(t * s.speed + s.phase));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(220,200,255,${s.alpha})`;
+    ctx.fill();
+  });
+
+  // occasional shooting star
+  if (Math.random() < 0.004) {
+    shootingStars.push({ x: Math.random() * W * 0.7, y: Math.random() * H * 0.4, len: 80 + Math.random() * 60, alpha: 1 });
+  }
+  shootingStars = shootingStars.filter(s => s.alpha > 0);
+  shootingStars.forEach(s => {
+    const grd = ctx.createLinearGradient(s.x, s.y, s.x + s.len, s.y + s.len * 0.4);
+    grd.addColorStop(0, `rgba(220,200,255,${s.alpha})`);
+    grd.addColorStop(1, 'rgba(220,200,255,0)');
+    ctx.strokeStyle = grd;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(s.x, s.y);
+    ctx.lineTo(s.x + s.len, s.y + s.len * 0.4);
+    ctx.stroke();
+    s.x += 3; s.y += 1.5; s.alpha -= 0.025;
+  });
+}
+
+let raf;
+function loop(t) {
+  drawSky(t * 0.001);
+  raf = requestAnimationFrame(loop);
+}
+window.addEventListener('resize', resize);
+resize();
+requestAnimationFrame(loop);
+
+// ─── PETALS ───
+const petalColors = ['#c084fc','#a855f7','#e9d5ff','#d8b4fe','#f0abfc'];
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  const size = 6 + Math.random() * 8;
+  p.style.cssText = `
+    left:${Math.random()*100}vw;
+    width:${size}px; height:${size}px;
+    background:${petalColors[Math.floor(Math.random()*petalColors.length)]};
+    animation-duration:${10 + Math.random()*14}s;
+    animation-delay:${Math.random()*12}s;
+    opacity:0;
+  `;
+  document.body.appendChild(p);
+}
+
+// ─── REVEAL ON SCROLL ───
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
